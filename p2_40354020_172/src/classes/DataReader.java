@@ -1,65 +1,91 @@
 package classes;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
+public class  {
 
-public class DataReader {
-
-	private int n;    // number of data generators (telephone companies in p1_4035_4020_172
-	private int m;    // number of data sets produced per data generator
-	private Integer[][][] dataSet; 
-	private String parentDirectory; 
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		
+		int id=0;
+		int arrivalTime=0;
+		int remainingTime=0;
+		String line;
+		String parentDirectory = "inputFiles";
 	
-
-	public DataReader() throws FileNotFoundException {
-		parentDirectory = "inputFiles"; 
-		Scanner parameters = new Scanner(new File(parentDirectory, "parameters.txt")); 
-		// the values of n and m shall be read from file: "inputFiles/parameters.txt". 
-		this.n = parameters.nextInt(); 
-		this.m = parameters.nextInt();
-		parameters.close();
-	}
-	
-	/**
-	 * 
-	 * @return
-	 * @throws FileNotFoundException 
-	 */
-	public Object[][][] readDataFiles() throws FileNotFoundException {
-		dataSet = new Integer[n][m][];
-
-		for (int i=0; i<n; i++) { 
-			for (int j=0; j<m; j++) {
+	for(int ii = 1;ii<5;ii++) {	
+	//	File f=new File("inputFiles/input"+ii+".txt");
+		BufferedReader reader=null;
+		try {
+			Scanner scanner = new Scanner(new File(parentDirectory, "input"+ii+".txt"));
+			scanner.useDelimiter(",");
+		//	System.out.println("tohere");
+			//System.out.println(scanner.);
+			
+			while(scanner.hasNextInt()) {
+				arrivalTime = scanner.nextInt();
+				remainingTime = scanner.nextInt();
+				id++;
+			//	System.out.println(" x "+id+" y "+arrivalTime+" z "+remainingTime);
+				Job each=new Job (id, arrivalTime, remainingTime);
+				inputQueue.enqueue(each);
 				
-				String fileName = "F_" + i + "_" + j + ".txt"; 
-				Scanner inputFile = new Scanner(new File(parentDirectory, fileName)); 
-				ArrayList<Integer> fileContent = new ArrayList<>(); 
-				while (inputFile.hasNext())
-					fileContent.add(inputFile.nextInt());
-				inputFile.close();
-				dataSet[i][j] = (Integer[]) fileContent.toArray(new Integer[0]);  
 			}
-		}	
-		return dataSet; 
-	}
-
-	
-	public void printSets() { 
-		System.out.println("Sets Fij are: " ); 
-		for (int i=0; i<n; i++)
-			for (int j=0; j<m; j++) { 
-				System.out.print("Set["+i+"]["+j+"] = "); 
-				printArray((Integer[]) dataSet[i][j]); 
+						
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		int time=0;
+//		int loop=0;
+		while(!processingQueue.isEmpty() || ! inputQueue.isEmpty()) {
+//			loop++;
+//			if(loop>100) {return;}
+			if (!processingQueue.isEmpty()) {
+				Job ntr=processingQueue.first();
+//				System.out.println("t "+time+" "+ntr);
+				ntr.isServed(1);
+				if (ntr.getremainingTime()==0) {
+					ntr.setDepartureTime(time);
+					terminatedJobs.enqueue(processingQueue.first());
+					processingQueue.dequeue();
+				}
+				else {
+					processingQueue.enqueue(processingQueue.dequeue());
+				}
 			}
+			if (!inputQueue.isEmpty()) {
+				Job input=inputQueue.first();
+				if (input.getarrivalTime()==time) {
+					processingQueue.enqueue(inputQueue.dequeue());
+				}
+			}	
+			time++;		
+		}
+			double totalTime=0.0;
+			double firstValue=0.0;
+			double secondValue=0.0;
+			double averageTime=0.0;
+			int count=0;
+			
+			while (!terminatedJobs.isEmpty()) {
+				firstValue=terminatedJobs.first().getarrivalTime();
+				secondValue=terminatedJobs.first().getDepartureTime();
+				totalTime=(secondValue-firstValue)+totalTime;
+				count++;
+				terminatedJobs.dequeue();
+			}
+			
+			averageTime=totalTime/count;
+			
+			System.out.print(" Average Time in System for input"+ii+".txt is: " + averageTime);
+			System.out.println();
+			System.out.println();
+		//	System.out.printf("%.f", averageTime);
+			
+		}
+		
 	}
-	
-	private void printArray(Integer[] numbers) {
-		for (int i=0; i<numbers.length; i++) 
-			System.out.print(numbers[i] + "  "); 
-		System.out.println(); 
-	}
-
-
 }
+
