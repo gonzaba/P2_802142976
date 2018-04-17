@@ -85,18 +85,12 @@ public class Customer {
 			return remainingTime;
 		}
 		
-		
-		
 		/**
 		 * decreases the remaining time by one number
 		 */
 		public void decreaseRemainingTime() {
 			remainingTime--;
 		}
-		
-		
-		
-		
 		
 		
 	}
