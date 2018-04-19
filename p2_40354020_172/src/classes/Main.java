@@ -68,7 +68,7 @@ public class Main {
        ArrayQueue<Customer> listToProcess = readFileData(listOfFiles);
        
        SLMS policy1 = new SLMS(listToProcess);
-       
+       policy1.result();
        
 
          
@@ -113,7 +113,7 @@ public class Main {
                 	job.setRemainingTime(Integer.parseInt(part[1]));
                 	job.setDepartureTime(0);
                 	id++;
-                System.out.println(job);
+               // System.out.println(job);
                 listOfCustomers.enqueue(job);
                                  
                 }

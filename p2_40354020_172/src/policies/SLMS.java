@@ -35,6 +35,7 @@ public class SLMS {
 	 
 	public void result() {
 		
+		
 		//set time
 		int time = 0;
 		
@@ -47,7 +48,7 @@ public class SLMS {
 		listOfServicePost.add(servicePost2);
 		
 		
-		while(!listToCust.isEmpty()||allSPBusy(listOfServicePost)) {
+		//while(!listToCust.isEmpty()||allSPBusy(listOfServicePost)) {
 			
 			//decreases the time of all customers 
 			decreaseTime(listOfServicePost);
@@ -56,12 +57,23 @@ public class SLMS {
 			//AKA Service-Completed Event
 			
 			for(int i=0; i<listOfServicePost.size(); i++) {
-				if(listOfServicePost.get(i).getCustomer().getRemainingTime()==0) {
+				//verifica primero si en el service post hay alguien sino hay nadie pues no verifica el 
+				//customer pq no tiene a nadie.
+				if(!listOfServicePost.get(i).isAvailable()) {
+					//busca el remaining time para verificar si es igual a cero
+					//si es igual a cero pues quita el customer
+					if(listOfServicePost.get(i).getCustomer().getRemainingTime()==0) {
 					
-					Customer p = listOfServicePost.get(i).removeCustomer();
-					p.setDepartureTime(time);
-					terminatedJobs.enqueue(p);
+						Customer p = listOfServicePost.get(i).removeCustomer();
+						//le asigna al customer el departure time que es igual a time corriente
+						p.setDepartureTime(time);
+					
+						//System.out.println(p);
+						
+						//pone al customer en la lista de personas ya atendidas
+						terminatedJobs.enqueue(p);
 				}
+			}
 			}	
 			
 			//Service-Starts Event
@@ -82,7 +94,7 @@ public class SLMS {
 				listToProcess.enqueue(listToCust.dequeue());
 			}
 			time++;
-		}
+	//	}
 	}//end of result
 	
 	
@@ -111,9 +123,13 @@ public class SLMS {
 	 */
 	public void decreaseTime(ArrayList<ServicePost> lista) {
 		
-		for(int i =0; i < lista.size(); i++) {
-			lista.get(i).getCustomer().decreaseRemainingTime();
-		}
+			for(int i =0; i < lista.size(); i++) {
+				//Solo le hace decrease si el ServicePost tiene una persona atendiendolo
+				if(!lista.get(i).isAvailable()) {
+				lista.get(i).getCustomer().decreaseRemainingTime();
+				}
+			}
+		
 		
 	}
 
