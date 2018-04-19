@@ -1,6 +1,5 @@
-package classes;
+package policies;
 
-import interfaces.Queue;
 
 /**
  * 
@@ -14,6 +13,6 @@ import interfaces.Queue;
 
 public class MLMS {
 
-	ArrayQueue<Customer> list = new ArrayQueue<>();
+
 
 }

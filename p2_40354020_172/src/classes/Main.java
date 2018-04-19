@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import objects.Customer;
+import policies.SLMS;
+
 /**
  * 
  * @author Bárbara P. González Rivera - 802-14-2976
@@ -62,36 +65,23 @@ public class Main {
         //will read the first file. Later this must be put in a while
         //to read all files in the listOfFiles.
         
-        readFileData(listOfFiles);
-        
+       ArrayQueue<Customer> listToProcess = readFileData(listOfFiles);
+       
+       SLMS policy1 = new SLMS(listToProcess);
+       
+       
 
-
-
-        
-        
-        /**
-         * 
-         * //Queue which will hold the information of the customers that will be
-		//extracted from the file.
-		ArrayQueue<Customer> listOfCustomers = new ArrayQueue<Customer>();
-         *   
-         *    int id = 1; //auto assigned ID
-          int t = 0; // time the customer arrives. Initially set to zero for initialization.
-          int s = 0; //time it takes to service the customer. Initially set to zero for initialization
-          int d = 0; //time of departure of the customer. Initially set to zero for initialization
-          
-          //First here we read the file to create the Customer Object to enqueue it to the listOfCustomers that 
-          //will be the line the approaches will have
-         */
          
+       //policy1.result();
+       
 	
 	}//end of main(String[] args)
 	
-    public static void readFileData(ArrayQueue<String> listOfFiles) {
+    public static ArrayQueue<Customer> readFileData(ArrayQueue<String> listOfFiles) {
     		
     		
     		//Queue that will hold the list of data about customers
-    		ArrayQueue<String> listOfCustomers = new ArrayQueue<String>();
+    		ArrayQueue<Customer> listOfCustomers = new ArrayQueue<Customer>();
     		
     		//Folder where the file is supposed to be located
     		String parentDirectory = "inputFiles";
@@ -104,17 +94,28 @@ public class Main {
     		
     		BufferedReader br = null;
             String line;
+            int id = 1;
        
             try {
 
                 br = new BufferedReader(new FileReader(file));
                 while ((line = br.readLine()) != null) {
                 	
+                //System.out.println(line);
                 	
-                System.out.println(line);
-                //Enqueuing the list of files to analyze
-                //listOfFiles.enqueue(line);  
-                  
+                	String[] part = line.split(" ");
+                	
+                	Customer job = new Customer();
+                	
+                	job.setId(id);
+                	job.setArrivalTime(Integer.parseInt(part[0]));
+                	job.setServiceTime(Integer.parseInt(part[1]));
+                	job.setRemainingTime(Integer.parseInt(part[1]));
+                	job.setDepartureTime(0);
+                	id++;
+                System.out.println(job);
+                listOfCustomers.enqueue(job);
+                                 
                 }
             }catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -128,6 +129,9 @@ public class Main {
                         e.printStackTrace();}
                 }
             }//end of try
+         return listOfCustomers;
     }//end of readFileData
+    
+  
             
 }// end of Main

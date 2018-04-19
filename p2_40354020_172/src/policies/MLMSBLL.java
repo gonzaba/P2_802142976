@@ -1,4 +1,4 @@
-package classes;
+package policies;
 
 
 /**
@@ -9,10 +9,8 @@ package classes;
  *
  */
 
-//Single Line Multiple Servers
+//Multiple Lines Multiple Servers and Balanced Line Lengths
 
-public class SLMS {
-	
-	
+public class MLMSBLL {
 
 }

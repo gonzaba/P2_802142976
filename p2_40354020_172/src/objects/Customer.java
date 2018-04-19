@@ -1,4 +1,5 @@
-package classes;
+package objects;
+
 
 
 /**
@@ -62,7 +63,6 @@ public class Customer {
 			remainingTime = r;
 		}
 		
-		
 		//Getters
 		
 		public int getId() {
@@ -92,8 +92,11 @@ public class Customer {
 			remainingTime--;
 		}
 		
+		 public String toString() { 
+			 return "ID = " + id + "  Arrival Time = " + arrivalTime + "  Remaining Time = " + remainingTime + "  Departure Time = " + departureTime; 				
+		 }
 		
-	}
+	}//end of Customer class
 
 
 
