@@ -40,32 +40,44 @@ public class SLMS {
 		int time = 0;
 		
 		//Creates and Initialize the amount of ServicePost wanted
-		ServicePost servicePost1 = new ServicePost();
-		ServicePost servicePost2 = new ServicePost();
+		
+		ServicePost servicePost1 = new ServicePost(); //aka cajero #1
+		ServicePost servicePost2 = new ServicePost(); //aka cajero #2 
+		
+		
 		
 		//Adds the service post to my master list of service posts.
-		listOfServicePost.add(servicePost1);
-		listOfServicePost.add(servicePost2);
 		
+		listOfServicePost.add(servicePost1); //Anado cajero #1 a la lista de cajeros
+		listOfServicePost.add(servicePost2);//Anado cajero #1 a la lista de cajeros 		
 		
 		//while(!listToCust.isEmpty()||allSPBusy(listOfServicePost)) {
 			
 			//decreases the time of all customers 
 			decreaseTime(listOfServicePost);
 			
-			//Verifico si se termino de service el customer en cada service Post
-			//AKA Service-Completed Event
+			/**
+			 * ---Service-Completed Event---
+			 * Verifico si se termino de service el customer en cada service Post 
+			 */
 			
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			for(int i=0; i<listOfServicePost.size(); i++) {
+				
 				//verifica primero si en el service post hay alguien sino hay nadie pues no verifica el 
 				//customer pq no tiene a nadie.
+				
 				if(!listOfServicePost.get(i).isAvailable()) {
+					
 					//busca el remaining time para verificar si es igual a cero
 					//si es igual a cero pues quita el customer
+					
 					if(listOfServicePost.get(i).getCustomer().getRemainingTime()==0) {
 					
 						Customer p = listOfServicePost.get(i).removeCustomer();
+						
 						//le asigna al customer el departure time que es igual a time corriente
+						
 						p.setDepartureTime(time);
 					
 						//System.out.println(p);
@@ -75,10 +87,15 @@ public class SLMS {
 				}
 			}
 			}	
-			
-			//Service-Starts Event
-			
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
+			
+			/**
+			 * Service-Starts Event
+			 */
+			
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 			while(!listToProcess.isEmpty() && !allSPBusy(listOfServicePost)) {
 				for(int i=0; i<listOfServicePost.size();i++) {
 					if(listOfServicePost.get(i).isAvailable()) {
@@ -86,15 +103,29 @@ public class SLMS {
 					}
 				}
 			}
-			
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		
-			//Arrival Event
+			/**
+			 * Arrival Event
+			 * Checks when people arrive. If their arrival time is equal to the time currently in the system
+			 * they are added to the line of customers waiting to be served.
+			 */
+			
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					
 			while(!listToCust.isEmpty() && listToCust.first().getArrivalTime()==time) {	
 				listToProcess.enqueue(listToCust.dequeue());
 			}
-			time++;
-	//	}
+			
+			
+	
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			time++;	
+			
+//	}//end of while
 	}//end of result
 	
 	
@@ -126,6 +157,7 @@ public class SLMS {
 			for(int i =0; i < lista.size(); i++) {
 				//Solo le hace decrease si el ServicePost tiene una persona atendiendolo
 				if(!lista.get(i).isAvailable()) {
+					
 				lista.get(i).getCustomer().decreaseRemainingTime();
 				}
 			}
