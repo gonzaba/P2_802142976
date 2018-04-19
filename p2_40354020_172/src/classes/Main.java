@@ -72,7 +72,7 @@ public class Main {
        
 
          
-       //policy1.result();
+ 
        
 	
 	}//end of main(String[] args)
@@ -113,7 +113,7 @@ public class Main {
                 	job.setRemainingTime(Integer.parseInt(part[1]));
                 	job.setDepartureTime(0);
                 	id++;
-               // System.out.println(job);
+                //System.out.println(job);
                 listOfCustomers.enqueue(job);
                                  
                 }

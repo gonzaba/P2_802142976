@@ -22,7 +22,7 @@ import objects.ServicePost;
 public class SLMS {
 	
 	ArrayQueue<Customer> listToCust;
-	ArrayQueue<Customer> listToProcess;
+	ArrayQueue<Customer> listToProcess = new ArrayQueue<>();
 	
 	ArrayList<ServicePost> listOfServicePost = new ArrayList<>();
 	
@@ -51,7 +51,7 @@ public class SLMS {
 		listOfServicePost.add(servicePost1); //Anado cajero #1 a la lista de cajeros
 		listOfServicePost.add(servicePost2);//Anado cajero #1 a la lista de cajeros 		
 		
-		//while(!listToCust.isEmpty()||allSPBusy(listOfServicePost)) {
+		while(!listToCust.isEmpty()||allSPBusy(listOfServicePost)) {
 			
 			//decreases the time of all customers 
 			decreaseTime(listOfServicePost);
@@ -80,13 +80,13 @@ public class SLMS {
 						
 						p.setDepartureTime(time);
 					
-						//System.out.println(p);
+						System.out.println(p);
 						
 						//pone al customer en la lista de personas ya atendidas
 						terminatedJobs.enqueue(p);
 				}
 			}
-			}	
+			}	//end of for
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 			
@@ -96,7 +96,7 @@ public class SLMS {
 			
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			while(!listToProcess.isEmpty() && !allSPBusy(listOfServicePost)) {
+			while(!listToProcess.isEmpty()) {
 				for(int i=0; i<listOfServicePost.size();i++) {
 					if(listOfServicePost.get(i).isAvailable()) {
 						listOfServicePost.get(i).setCustomer(listToProcess.dequeue());
@@ -115,7 +115,10 @@ public class SLMS {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					
 			while(!listToCust.isEmpty() && listToCust.first().getArrivalTime()==time) {	
-				listToProcess.enqueue(listToCust.dequeue());
+				Customer c = listToCust.dequeue();
+				System.out.println(c);
+				System.out.println(time);
+				listToProcess.enqueue(c);
 			}
 			
 			
@@ -125,7 +128,7 @@ public class SLMS {
 
 			time++;	
 			
-//	}//end of while
+}//end of while
 	}//end of result
 	
 	
@@ -143,7 +146,6 @@ public class SLMS {
 			areBusy = false;
 		}
 		}
-		
 		return areBusy;
 	}
 	
