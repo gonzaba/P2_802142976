@@ -40,7 +40,7 @@ public class Main {
             while ((fileName = br.readLine()) != null) {
             	
             	
-            //System.out.println(fileName);
+            System.out.println(fileName);
             //Enqueuing the list of files to analyze
             listOfFiles.enqueue(fileName);  
           
@@ -66,11 +66,14 @@ public class Main {
         //to read all files in the listOfFiles.
        
         	
+       while(!listOfFiles.isEmpty()) {
+    	   
        ArrayQueue<Customer> listToProcess = readFileData(listOfFiles);
        
+       }
        
-      SLMS policy1 = new SLMS(listToProcess);
-      policy1.result();
+    //  SLMS policy1 = new SLMS(listToProcess);
+    //policy1.result();
        
         
 	}//end of main(String[] args)
@@ -111,7 +114,7 @@ public class Main {
                 	job.setRemainingTime(Integer.parseInt(part[1]));
                 	job.setDepartureTime(0);
                 	id++;
-                //System.out.println(job);
+                System.out.println("Customer of file= " + fileName + "   " + job);
                 listOfCustomers.enqueue(job);
                                  
                 }
