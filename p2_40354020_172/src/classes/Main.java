@@ -11,10 +11,10 @@ import policies.SLMS;
 
 /**
  * 
- * @author Bárbara P. González Rivera - 802-14-2976
+ * @author Bï¿½rbara P. Gonzï¿½lez Rivera - 802-14-2976
  * @author Ramineh Lopez - 402-12-3657
  * ICOM4035 - 030
- *
+ * The main class reads the valid data text files inside inputFile and extracts the time stamps.  It cal
  */
 
 public class Main {
@@ -64,11 +64,13 @@ public class Main {
         
         //will read the first file. Later this must be put in a while
         //to read all files in the listOfFiles.
-        
+       
+        	
        ArrayQueue<Customer> listToProcess = readFileData(listOfFiles);
        
-       SLMS policy1 = new SLMS(listToProcess);
-       policy1.result();
+       
+      SLMS policy1 = new SLMS(listToProcess);
+      policy1.result();
        
         
 	}//end of main(String[] args)

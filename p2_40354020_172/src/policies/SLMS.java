@@ -11,10 +11,11 @@ import objects.ServicePost;
 
 /**
  * 
- * @author Bárbara P. González Rivera - 802-14-2976
+ * @author Bï¿½rbara P. Gonzï¿½lez Rivera - 802-14-2976
  * @author Ramineh Lopez - 402-12-3657
  * ICOM4035 - 030
- *
+ * In this policy, there is only one waiting line and many service posts.  When available, each post accepts a new customer. 
+ * In case that there are more than one service post 
  */
 
 //Single Line Multiple Servers
