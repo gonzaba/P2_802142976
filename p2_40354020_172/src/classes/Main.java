@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.sound.sampled.LineUnavailableException;
+
 import objects.Customer;
 import policies.SLMS;
 
@@ -43,8 +45,7 @@ public class Main {
             System.out.println(fileName);
             //Enqueuing the list of files to analyze
             listOfFiles.enqueue(fileName);  
-          
-            
+                     
               
             }
         }catch (FileNotFoundException e) {
@@ -66,11 +67,11 @@ public class Main {
         //to read all files in the listOfFiles.
        
         	
-       while(!listOfFiles.isEmpty()) {
+      while(!listOfFiles.isEmpty()) {
     	   
        ArrayQueue<Customer> listToProcess = readFileData(listOfFiles);
        
-       }
+      }
        
     //  SLMS policy1 = new SLMS(listToProcess);
     //policy1.result();
@@ -99,10 +100,11 @@ public class Main {
        
             try {
 
+            	
                 br = new BufferedReader(new FileReader(file));
                 while ((line = br.readLine()) != null) {
                 	
-                //System.out.println(line);
+                System.out.println(line);
                 	
                 	String[] part = line.split(" ");
                 	
@@ -119,9 +121,11 @@ public class Main {
                                  
                 }
             }catch (FileNotFoundException e) {
+            	System.out.println("Input file not Found.");
                 e.printStackTrace();
-            } catch (IOException e) {
+            } catch (IOException e) {           	
                 e.printStackTrace();
+                
             } finally {
                 if (br != null) {
                     try {
