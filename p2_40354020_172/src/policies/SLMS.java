@@ -79,7 +79,7 @@ public class SLMS {
 						//le asigna al customer el departure time que es igual a time corriente
 						
 						p.setDepartureTime(time);
-					
+						
 						System.out.println(p);
 						
 						//pone al customer en la lista de personas ya atendidas
@@ -114,19 +114,23 @@ public class SLMS {
 			
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					
+			
+			
 			while(!listToCust.isEmpty() && listToCust.first().getArrivalTime()==time) {	
 				Customer c = listToCust.dequeue();
-				System.out.println(c);
-				System.out.println(time);
+				System.out.println("Entrando a ListToProcess=" + c);
+			//	System.out.println(time);
 				listToProcess.enqueue(c);
 			}
 			
 			
-	
+			
+			
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			time++;	
+			
+	time++;	
 			
 }//end of while
 	}//end of result

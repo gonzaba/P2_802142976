@@ -70,11 +70,7 @@ public class Main {
        SLMS policy1 = new SLMS(listToProcess);
        policy1.result();
        
-
-         
- 
-       
-	
+        
 	}//end of main(String[] args)
 	
     public static ArrayQueue<Customer> readFileData(ArrayQueue<String> listOfFiles) {
