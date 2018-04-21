@@ -192,7 +192,7 @@ public class Main {
 	 	            	job.setDepartureTime(0);
 	 	            	id++;
 	 	            
-	 	            	System.out.println(fileName + " " + job);
+	 	            	//System.out.println(fileName + " " + job);
 	 	            	listOfCustomers.enqueue(job);
 	        		 }                            
 	            }//end of else
