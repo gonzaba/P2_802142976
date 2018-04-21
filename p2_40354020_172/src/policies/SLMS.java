@@ -123,15 +123,7 @@ public class SLMS {
 			 * Service-Starts Event
 			 */
 			
-
-			while(!listToProcess.isEmpty() && !(allSPBusy(listOfServicePost)==true)) {
-				for(int i=0; i<listOfServicePost.size();i++) {
-					if(listOfServicePost.get(i).isAvailable() && !(listToProcess.isEmpty())) {
-						listOfServicePost.get(i).setCustomer(listToProcess.dequeue());
-						System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
-					}
-				}
-			}
+			serviceStarts();
 			
 			
 			/**
@@ -143,14 +135,16 @@ public class SLMS {
 			
 			while(!listToCust.isEmpty() && listToCust.first().getArrivalTime()==time) {	
 				Customer c = listToCust.dequeue();
-				System.out.println("Entrando a ListToProcess= " + c);
+				//System.out.println("Entrando a ListToProcess= " + c);
 				listToProcess.enqueue(c);
 				
 				}
 			
+			serviceStarts();
+			
 			
 			time++;	
-			System.out.println("Time = " + time);
+		//	System.out.println("Time = " + time);
 			//System.out.println("List no esta vacia:" + !listToCust.isEmpty());
 			//System.out.println("Todos SP are busy: " + allSPBusy(listOfServicePost));
 			//System.out.println("Todos estan available" + allAvailable(listOfServicePost));
@@ -170,7 +164,7 @@ public class SLMS {
 		
 		calculateAverageTime(terminatedJobs,finalResult);
 		
-		System.out.println(finalResult);
+		//System.out.println(finalResult);
 		
 		return finalResult;
 		
@@ -223,7 +217,7 @@ public class SLMS {
 					
 				lista.get(i).getCustomer().decreaseRemainingTime();
 				
-				System.out.println(listOfServicePost.get(i).getCustomer());
+			//	System.out.println(listOfServicePost.get(i).getCustomer());
 				}
 			}
 		
@@ -264,6 +258,20 @@ public class SLMS {
 		
 		//System.out.print(totalTime);
 	}
+	
+	public void serviceStarts() {
+		
+		while(!listToProcess.isEmpty() && !(allSPBusy(listOfServicePost)==true)) {
+			for(int i=0; i<listOfServicePost.size();i++) {
+				if(listOfServicePost.get(i).isAvailable() && !(listToProcess.isEmpty())) {
+					listOfServicePost.get(i).setCustomer(listToProcess.dequeue());
+					//System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
+				}
+			}
+		}
+	}
+
+	
 	
 	
 			
