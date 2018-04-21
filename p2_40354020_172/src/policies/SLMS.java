@@ -53,11 +53,15 @@ public class SLMS {
 			ServicePost servicePost1 = new ServicePost(); //aka cajero #1
 			listOfServicePost.add(servicePost1); //Anado cajero #1 a la lista de cajeros
 		}
-		if(numberOfServicePosts==2) {
+		if(numberOfServicePosts==3) {
 			ServicePost servicePost1 = new ServicePost();
 			listOfServicePost.add(servicePost1);
+			
 			ServicePost servicePost2 = new ServicePost(); 
 			listOfServicePost.add(servicePost2); 
+			
+			ServicePost servicePost3 = new ServicePost(); 
+			listOfServicePost.add(servicePost3);
 		}
 		if(numberOfServicePosts==5) {
 			ServicePost servicePost1 = new ServicePost(); 
@@ -78,7 +82,11 @@ public class SLMS {
 		int time = 0;
 
 		
-		while(!listToCust.isEmpty()||allSPBusy(listOfServicePost)) {
+		while(!listToCust.isEmpty() || allSPBusy(listOfServicePost) || !allAvailable(listOfServicePost)) {
+						
+			//System.out.println("List no esta vacia:" + !listToCust.isEmpty());
+			//System.out.println("Todos SP are busy: " + allSPBusy(listOfServicePost));
+			//System.out.println("Todos estan available" + allAvailable(listOfServicePost));
 			
 			decreaseTime(listOfServicePost);
 			
@@ -103,7 +111,7 @@ public class SLMS {
 						//sets the depature time to the current time in the system.
 						
 						p.setDepartureTime(time);
-						System.out.println(p);
+						//System.out.println(p);
 						//places the customers on the list of already serviced customers.
 						terminatedJobs.enqueue(p);
 				}
@@ -118,9 +126,9 @@ public class SLMS {
 
 			while(!listToProcess.isEmpty() && !(allSPBusy(listOfServicePost)==true)) {
 				for(int i=0; i<listOfServicePost.size();i++) {
-					if(listOfServicePost.get(i).isAvailable()) {
+					if(listOfServicePost.get(i).isAvailable() && !(listToProcess.isEmpty())) {
 						listOfServicePost.get(i).setCustomer(listToProcess.dequeue());
-						System.out.println("Entro a SP=" + listOfServicePost.get(i).getCustomer());
+						System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
 					}
 				}
 			}
@@ -135,7 +143,7 @@ public class SLMS {
 			
 			while(!listToCust.isEmpty() && listToCust.first().getArrivalTime()==time) {	
 				Customer c = listToCust.dequeue();
-				//System.out.println("Entrando a ListToProcess= " + c);
+				System.out.println("Entrando a ListToProcess= " + c);
 				listToProcess.enqueue(c);
 				
 				}
@@ -143,6 +151,9 @@ public class SLMS {
 			
 			time++;	
 			System.out.println("Time = " + time);
+			//System.out.println("List no esta vacia:" + !listToCust.isEmpty());
+			//System.out.println("Todos SP are busy: " + allSPBusy(listOfServicePost));
+			//System.out.println("Todos estan available" + allAvailable(listOfServicePost));
 			
 			
 			
@@ -159,7 +170,7 @@ public class SLMS {
 		
 		calculateAverageTime(terminatedJobs,finalResult);
 		
-		//System.out.println(finalResult);
+		System.out.println(finalResult);
 		
 		return finalResult;
 		
@@ -184,6 +195,19 @@ public class SLMS {
 		return areBusy;
 	}
 	
+	public boolean allAvailable(ArrayList<ServicePost> lista) {
+		
+		boolean areAvailable = true;
+		
+		for(int i=0; i<lista.size();i++) {
+			
+		if(!lista.get(i).isAvailable()) {
+			areAvailable = false;
+		}
+		
+		}
+		return areAvailable;
+	}
 	
 	/**
 	 * 
@@ -191,10 +215,11 @@ public class SLMS {
 	 * This method decreases the remaining time of each customer being served
 	 */
 	public void decreaseTime(ArrayList<ServicePost> lista) {
-		
-			for(int i =0; i < lista.size(); i++) {
+		//System.out.println("Size de lista=" +lista.size());
+			for(int i =0; i <lista.size(); i++) {
+				//System.out.println("i= "+ i);
 				//Solo le hace decrease si el ServicePost tiene una persona atendiendolo
-				if(!lista.get(i).isAvailable()) {
+				if(!(lista.get(i).isAvailable())) {
 					
 				lista.get(i).getCustomer().decreaseRemainingTime();
 				

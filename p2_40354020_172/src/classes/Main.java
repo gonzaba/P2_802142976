@@ -83,7 +83,7 @@ public class Main {
 		   
 		 
 	     //uncomment when everything is completed
-	  //  while(!listOfFiles.isEmpty()) {
+	   // while(!listOfFiles.isEmpty()) {
 	    	
 	    String f = listOfFiles.first();
 	    
@@ -99,27 +99,23 @@ public class Main {
 	 		writer2.println("Number of customers is: " + listcust.size());
 	 		
 	 		
-	 		
-	 		SLMS SLMS1 = new SLMS(listcust, 1);
-	 		    
+	 		SLMS SLMS1 = new SLMS(copyOf(listcust), 1);    
 	 		writer2.println("SLMS 1: " + SLMS1.result());
 	 		
+	 		//System.out.println(listcust.dequeue());	 		
 
+	 		SLMS SLMS3 = new SLMS(copyOf(listcust), 3);
+	 		writer2.println("SLMS 3: " + SLMS3.result());
 	 	   
-		     //SLMS SLMS3 = new SLMS(readFileData(listOfFiles), 3);
-	 		//writer2.println("SLMS 3: " + SLMS3.result());
-		    // SLMS SLMS5 = new SLMS(readFileData(listOfFiles), 5);
-	 		//writer2.println("SLMS 5: " + SLMS5.result());
+	 		SLMS SLMS5 = new SLMS(copyOf(listcust), 5);
+	 		writer2.println("SLMS 5: " + SLMS5.result());
 	 		
 	 		writer2.close();
+	 	  
+		   
 	 		
 	    }
-	        
-	    
-	     
-	     //MUST CREATE COPY list to pass the same list to each approach!!!
-	
-	  
+	       
 		
 		
 		 /**
@@ -136,7 +132,7 @@ public class Main {
 		  policy4.result();
 	     */ 
 	  
-	// }//end of while
+	//}//end of while
 	    
 	
 		  
@@ -262,6 +258,38 @@ public class Main {
 			writer.println("Input file does not meet the expected format or it is empty.");
 			writer.close();
 		}	
+		
+	}
+	
+	public static ArrayQueue<Customer> copyOf(ArrayQueue<Customer>listcust){
+		
+		ArrayQueue<Customer> copy = new ArrayQueue<>();
+		
+		//System.out.println(listcust.size());
+		int i=0;
+		while(!(i==listcust.size())) {
+			
+			Customer c = listcust.dequeue();
+			
+			//System.out.println(c);
+		
+			
+			Customer copyC = new Customer();
+			
+			//System.out.println(copyC);
+			
+			copyC.setArrivalTime(c.getArrivalTime());
+			copyC.setDepartureTime(c.getDepartureTime());
+			copyC.setId(c.getId());
+			copyC.setRemainingTime(c.getRemainingTime());
+			copyC.setServiceTime(c.getServiceTime());
+			
+			listcust.enqueue(c);
+			
+			copy.enqueue(copyC);
+			i++;
+		}
+		return copy;
 		
 	}
 	

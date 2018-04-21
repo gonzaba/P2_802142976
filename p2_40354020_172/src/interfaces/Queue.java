@@ -1,5 +1,11 @@
 package interfaces;
 
+/**
+ * @author Barbara P. Gonzalez Rivera - 802-14-2976
+ * @author Ramineh Lopez - 402-12-3657
+ * ICOM4035 - 030
+ */
+
 public interface Queue<E> {
 	/** Accessor Method.
       Returns the size of the current instance

@@ -2,6 +2,12 @@ package classes;
 
 import interfaces.Queue;
 
+/**
+ * @author Barbara P. Gonzalez Rivera - 802-14-2976
+ * @author Ramineh Lopez - 402-12-3657
+ * ICOM4035 - 030
+ */
+
 public class ArrayQueue<E> implements Queue<E> {
 	private final static int INITCAP = 4; 
 	private E[] elements; 

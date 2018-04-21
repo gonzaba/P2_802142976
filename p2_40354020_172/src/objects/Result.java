@@ -1,7 +1,13 @@
 package objects;
 
 public class Result {
-
+	
+	/**
+	 * @author Barbara P. Gonzalez Rivera - 802-14-2976
+	 * @author Ramineh Lopez - 402-12-3657
+	 * ICOM4035 - 030
+	 */
+	
 	/**
 	 * This class is used to set up the printing format
 	 * for a file that was successfully processed.

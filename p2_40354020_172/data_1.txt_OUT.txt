@@ -1,2 +1,4 @@
 Number of customers is: 5
 SLMS 1: 17 9.0 0
+SLMS 3: 9 4.4 0
+SLMS 5: 8 4.0 0
