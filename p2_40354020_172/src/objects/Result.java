@@ -9,7 +9,7 @@ public class Result {
 	
 	
 	    private int t1; //time when all services are completed
-	    private int t2; //average waiting time for the input data
+	    private float t2; //average waiting time for the input data
 	    private int m; //average number of customers that reached the service post
 
 	    //constructors
@@ -26,8 +26,8 @@ public class Result {
 	        this.t1 = t1;
 	    }
 
-	    public void setAverageWaitingTime(int t2) {
-	        this.t2 = t2;
+	    public void setAverageWaitingTime(float totalTime) {
+	        this.t2 = totalTime;
 	    }
 
 	    public void setAverageNumOfCust(int m) {
@@ -41,7 +41,7 @@ public class Result {
 	    public int getTimeServicesCompleted() {
 	        return t1;
 	    }
-	    public int getAverageWaitingTime() {
+	    public float getAverageWaitingTime() {
 	        return t2;
 	    }
 	    public int getAverageNumOfCust() {

@@ -155,8 +155,12 @@ public class SLMS {
 		
 		finalResult.setTimeServicesCompleted(timeAllServicesCompleted);
 		
-		System.out.println(finalResult);
-			
+		
+		
+		calculateAverageTime(terminatedJobs,finalResult);
+		
+		//System.out.println(finalResult);
+		
 		return finalResult;
 		
 	}//end of result
@@ -200,6 +204,46 @@ public class SLMS {
 		
 		
 	}
+	
+	public void calculateAverageTime(ArrayQueue<Customer> terminatedJobs, Result r) {
+		
+		//computing time
+		float totalTime = 0;
+		float valor1 = 0;
+		float valor2 = 0;
+		
+		
+		int count = terminatedJobs.size();
+		
+	//System.out.println("list Size: " +count);
+		
+		while(!(terminatedJobs.isEmpty())) {
+			valor1 = terminatedJobs.first().getArrivalTime();
+			valor2 = terminatedJobs.first().getDepartureTime();
+			
+			//System.out.println(valor1);
+			//System.out.println(valor2);
+			totalTime= (valor2-valor1) + totalTime;
+			
+			//System.out.println("totalTime = "  +totalTime);
+			terminatedJobs.dequeue();
+		}
+		
+		//System.out.println(totalTime/5);
+		totalTime= totalTime/ (float)count;
+		
+		
+		r.setAverageWaitingTime(totalTime);
+		
+		//System.out.print("Averange Time in System is: ");
+		
+		//System.out.print(totalTime);
+	}
+	
+	
+			
+			
+			
 	
 
 	
