@@ -249,10 +249,6 @@ public class Main {
 			writer.println("Input file does not meet the expected format or it is empty.");
 		}
 		
-		if(caseType==3) {
-			writer.println("YAY");
-		}
-		
 		writer.close();
 		
 		
