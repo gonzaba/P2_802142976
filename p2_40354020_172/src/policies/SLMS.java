@@ -26,7 +26,7 @@ public class SLMS {
 	ArrayQueue<Customer> listToCust;
 	ArrayQueue<Customer> listToProcess = new ArrayQueue<>();
 	ArrayList<ServicePost> listOfServicePost = new ArrayList<>();
-	ArrayQueue<Customer> terminatedJobs;
+	ArrayQueue<Customer> terminatedJobs = new ArrayQueue<>();
 	
 	int timeAllServicesCompleted = 0;
 	int averageWaitingTime = 0;
@@ -45,122 +45,119 @@ public class SLMS {
 	 
 	 
 	 
-	public void result() {
-		
-		
-		//set time
-		int time = 0;
+	public Result result() {
 		
 		//Creates and Initialize the amount of ServicePost wanted
 		//Adds the service post to my master list of service posts.
-		
 		if(numberOfServicePosts==1) {
 			ServicePost servicePost1 = new ServicePost(); //aka cajero #1
 			listOfServicePost.add(servicePost1); //Anado cajero #1 a la lista de cajeros
 		}
 		if(numberOfServicePosts==2) {
-			
 			ServicePost servicePost1 = new ServicePost();
 			listOfServicePost.add(servicePost1);
 			ServicePost servicePost2 = new ServicePost(); 
 			listOfServicePost.add(servicePost2); 
-			
 		}
 		if(numberOfServicePosts==5) {
-
 			ServicePost servicePost1 = new ServicePost(); 
 			listOfServicePost.add(servicePost1); 
-			
 			ServicePost servicePost2 = new ServicePost(); 
 			listOfServicePost.add(servicePost2); 
-			
 			ServicePost servicePost3 = new ServicePost(); 
 			listOfServicePost.add(servicePost3); 
-			
 			ServicePost servicePost4 = new ServicePost(); 
 			listOfServicePost.add(servicePost4); 
-		
 			ServicePost servicePost5 = new ServicePost();
 			listOfServicePost.add(servicePost5);
 		}
 		
 		
 		
+		//set time
+		int time = 0;
+
 		
 		while(!listToCust.isEmpty()||allSPBusy(listOfServicePost)) {
 			
-			//decreases the time of all customers 
 			decreaseTime(listOfServicePost);
+			
 			
 			/**
 			 * ---Service-Completed Event---
-			 * Verifico si se termino de service el customer en cada service Post 
+			 * Verifies if the remaining time of the customer is equal to zero in
+			 * each service post 
 			 */
-						
+		
 			for(int i=0; i<listOfServicePost.size(); i++) {
-				
-				//verifica primero si en el service post hay alguien sino hay nadie pues no verifica el 
-				//customer pq no tiene a nadie.
+				//Verifies first if the service post is occupied with someone
+				//it its available then it won't enter de condition about
+				//removing someone because it doesn't have a customer.
 				
 				if(!listOfServicePost.get(i).isAvailable()) {
-					
-					//busca el remaining time para verificar si es igual a cero
-					//si es igual a cero pues quita el customer
-					
+					//Looks for service time and checks if its equal to 0
+					//if its equal to 0 then it is removed from the service post.
 					if(listOfServicePost.get(i).getCustomer().getRemainingTime()==0) {
-					
-						Customer p = listOfServicePost.get(i).removeCustomer();
 						
-						//le asigna al customer el departure time que es igual a time corriente
+						Customer p = listOfServicePost.get(i).removeCustomer();
+						//sets the depature time to the current time in the system.
 						
 						p.setDepartureTime(time);
-						
 						System.out.println(p);
-						
-						//pone al customer en la lista de personas ya atendidas
+						//places the customers on the list of already serviced customers.
 						terminatedJobs.enqueue(p);
 				}
 			}
 			}	//end of for
-		
+			
 			
 			/**
 			 * Service-Starts Event
 			 */
 			
 
-			while(!listToProcess.isEmpty()) {
+			while(!listToProcess.isEmpty() && !(allSPBusy(listOfServicePost)==true)) {
 				for(int i=0; i<listOfServicePost.size();i++) {
 					if(listOfServicePost.get(i).isAvailable()) {
 						listOfServicePost.get(i).setCustomer(listToProcess.dequeue());
+						System.out.println("Entro a SP=" + listOfServicePost.get(i).getCustomer());
 					}
 				}
 			}
-
-		
+			
+			
 			/**
 			 * Arrival Event
 			 * Checks when people arrive. If their arrival time is equal to the time currently in the system
 			 * they are added to the line of customers waiting to be served.
-			 */
-			
-					
+			 */					
 			
 			
 			while(!listToCust.isEmpty() && listToCust.first().getArrivalTime()==time) {	
 				Customer c = listToCust.dequeue();
-				System.out.println("Entrando a ListToProcess=" + c);
-			//	System.out.println(time);
+				//System.out.println("Entrando a ListToProcess= " + c);
 				listToProcess.enqueue(c);
-			}
+				
+				}
 			
 			
+			time++;	
+			System.out.println("Time = " + time);
 			
-	time++;	
 			
-}//end of while
+		}// end of while
+		
+		
+				
+		timeAllServicesCompleted = time;
+		
+		finalResult.setTimeServicesCompleted(timeAllServicesCompleted);
+		
+		System.out.println(finalResult);
+			
+		return finalResult;
+		
 	}//end of result
-	
 	
 	/**
 	 * 
@@ -181,6 +178,7 @@ public class SLMS {
 		return areBusy;
 	}
 	
+	
 	/**
 	 * 
 	 * @param lista of servicePost
@@ -193,12 +191,13 @@ public class SLMS {
 				if(!lista.get(i).isAvailable()) {
 					
 				lista.get(i).getCustomer().decreaseRemainingTime();
+				
+				System.out.println(listOfServicePost.get(i).getCustomer());
 				}
 			}
 		
 		
 	}
-	
 	
 
 	

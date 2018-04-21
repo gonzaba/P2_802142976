@@ -1,20 +1,15 @@
 package classes;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import objects.Customer;
 import objects.Result;
-import policies.MLMS;
-import policies.MLMSBLL;
-import policies.MLMSBWT;
 import policies.SLMS;
 
 /**
@@ -86,30 +81,45 @@ public class Main {
 	  * 
 	  **/
 		   
-	      int numberOfCustomers =0;
-		 
 		 
 	     //uncomment when everything is completed
-	    while(!listOfFiles.isEmpty()) {
+	  //  while(!listOfFiles.isEmpty()) {
 	    	
 	    String f = listOfFiles.first();
 	    
 	     ArrayQueue<Customer> listcust = readFileData(listOfFiles);
 	     
-	     numberOfCustomers = listcust.size();
 	     
-	     if(numberOfCustomers>0) { 
-	    	 fileCreator(null, numberOfCustomers, f);
-	     }
+	     if(listcust.size()>0) { 
+	    	    	 
+	    	f.split("\\.");
+	    	
+	 		PrintWriter writer2 = new PrintWriter(f +"_OUT.txt", "UTF-8");
+	 		
+	 		writer2.println("Number of customers is: " + listcust.size());
+	 		
+	 		
+	 		
+	 		SLMS SLMS1 = new SLMS(listcust, 1);
+	 		    
+	 		writer2.println("SLMS 1: " + SLMS1.result());
+	 		
+
+	 	   
+		     //SLMS SLMS3 = new SLMS(readFileData(listOfFiles), 3);
+	 		//writer2.println("SLMS 3: " + SLMS3.result());
+		    // SLMS SLMS5 = new SLMS(readFileData(listOfFiles), 5);
+	 		//writer2.println("SLMS 5: " + SLMS5.result());
+	 		
+	 		writer2.close();
+	 		
+	    }
 	        
 	    
-	//  SLMS SLMS1 = new SLMS(listcust, 1);
-	    
-	//  SLMS1.result();
 	     
-	     //SLMS SLMS3 = new SLMS(readFileData(listOfFiles), 3);
-	     
-	    // SLMS SLMS5 = new SLMS(readFileData(listOfFiles), 5);
+	     //MUST CREATE COPY list to pass the same list to each approach!!!
+	
+	  
 		
 		
 		 /**
@@ -125,8 +135,10 @@ public class Main {
 		  MLMSBWT policy4 = new MLMSBWT(readFileData(listOfFiles));
 		  policy4.result();
 	     */ 
-	   }
-		 
+	  
+	// }//end of while
+	    
+	
 		  
 		  
 		  
@@ -240,6 +252,7 @@ public class Main {
 		if(caseType==1) {
 			
 			writer.println("Input file not found.");
+			writer.close();
 			
 		}
 		
@@ -247,22 +260,15 @@ public class Main {
 		if(caseType==2) {
 			
 			writer.println("Input file does not meet the expected format or it is empty.");
-		}
-		
-		writer.close();
-		
+			writer.close();
+		}	
 		
 	}
 	
 	
-	public static void fileCreator(Result r, int numberOfCust, String fileName) throws FileNotFoundException, UnsupportedEncodingException {
-		
-		fileName.split("\\.");
-		PrintWriter writer2 = new PrintWriter(fileName +"_OUT.txt", "UTF-8");
-		writer2.println("Number of customers is: " + numberOfCust);
-		writer2.close();
-	}
 	
+	
+
 	
 	
 }//end of Main
