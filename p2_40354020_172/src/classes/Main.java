@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import objects.Customer;
 import objects.Result;
+import policies.MLMS;
 import policies.SLMS;
 
 /**
@@ -83,7 +84,7 @@ public class Main {
 		   
 		 
 	     //uncomment when everything is completed
-	   // while(!listOfFiles.isEmpty()) {
+	   while(!listOfFiles.isEmpty()) {
 	    	
 	    String f = listOfFiles.first();
 	    
@@ -98,7 +99,6 @@ public class Main {
 	 		
 	 		writer2.println("Number of customers is: " + listcust.size());
 	 		
-	 		
 	 		SLMS SLMS1 = new SLMS(copyOf(listcust), 1);    
 	 		writer2.println("SLMS 1: " + SLMS1.result());
 	 		
@@ -110,20 +110,22 @@ public class Main {
 	 		SLMS SLMS5 = new SLMS(copyOf(listcust), 5);
 	 		writer2.println("SLMS 5: " + SLMS5.result());
 	 		
-	 		writer2.close();
-	 	  
+	 		
+	 		
+	 		MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
+	 		writer2.println("MLMS 1: " + MLMS1.result());
+						
+			writer2.close();
+		 	  
 		   
 	 		
 	    }
-	       
+	   
 		
 		
-		 /**
-		  *  
+		 /**  
 		  *  //uncomment when each policy is completed
-		  *  
-		  *   MLMS policy2 = new MLMS(readFileData(listOfFiles));
-		  policy2.result();
+		  *   
 		  
 		  MLMSBLL policy3 = new MLMSBLL(readFileData(listOfFiles));
 		  policy3.result();
@@ -132,7 +134,7 @@ public class Main {
 		  policy4.result();
 	     */ 
 	  
-	//}//end of while
+	}//end of while
 	    
 	
 		  

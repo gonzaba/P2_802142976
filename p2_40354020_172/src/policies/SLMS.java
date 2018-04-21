@@ -30,7 +30,6 @@ public class SLMS {
 	
 	int timeAllServicesCompleted = 0;
 	int averageWaitingTime = 0;
-	int m = 0;
 	
 	int numberOfServicePosts = 0;
 	
@@ -79,7 +78,9 @@ public class SLMS {
 		
 		
 		//set time
-		int time = 0;
+		int time = listToCust.first().getArrivalTime();
+		
+		//System.out.println(listToCust.first().getArrivalTime());
 
 		
 		while(!listToCust.isEmpty() || allSPBusy(listOfServicePost) || !allAvailable(listOfServicePost)) {

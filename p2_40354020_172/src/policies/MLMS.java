@@ -1,7 +1,11 @@
 package policies;
 
+import java.util.ArrayList;
+
 import classes.ArrayQueue;
 import objects.Customer;
+import objects.Result;
+import objects.ServicePost;
 
 /**
  * @author Barbara P. Gonzalez Rivera - 802-14-2976
@@ -12,15 +16,40 @@ import objects.Customer;
 //Multiple Lines Multiple Servers
 
 public class MLMS {
-
-	public MLMS(ArrayQueue<Customer> readFileData) {
-		// TODO Auto-generated constructor stub
+	
+	ArrayQueue<Customer> listToCust;
+	int numberOfServicePosts = 0;
+	int timeAllServicesCompleted = 0;
+	int averageWaitingTime = 0;
+	
+	ArrayQueue<Customer> listToProcess = new ArrayQueue<>();
+	
+	ArrayList<ServicePost> listOfServicePost = new ArrayList<>();
+	
+	ArrayQueue<Customer> terminatedJobs = new ArrayQueue<>();
+	
+	Result finalResult = new Result(0,0,0);
+	
+	
+	public MLMS(ArrayQueue<Customer> list, int i) {
+		this.listToCust = list;
+		this.numberOfServicePosts = i;
 	}
 
-	public void result() {
-		// TODO Auto-generated method stub
+	public Result result() {
+		return finalResult;
+		
 		
 	}
+	
+	
+
+
+	
+	
+	
+	
+
 
 
 
