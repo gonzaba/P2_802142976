@@ -24,7 +24,7 @@ public class SLMS {
 	
 	ArrayQueue<Customer> listToCust;
 	ArrayQueue<Customer> listToProcess = new ArrayQueue<>();
-	
+
 	ArrayList<ServicePost> listOfServicePost = new ArrayList<>();
 	
 	ArrayQueue<Customer> terminatedJobs;
@@ -147,9 +147,11 @@ public class SLMS {
 		boolean areBusy = true;
 		
 		for(int i=0; i<lista.size();i++) {
+			
 		if(lista.get(i).isAvailable()) {
 			areBusy = false;
 		}
+		
 		}
 		return areBusy;
 	}

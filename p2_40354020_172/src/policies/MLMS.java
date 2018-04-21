@@ -1,5 +1,7 @@
 package policies;
 
+import classes.ArrayQueue;
+import objects.Customer;
 
 /**
  * 
@@ -12,6 +14,15 @@ package policies;
 //Multiple Lines Multiple Servers
 
 public class MLMS {
+
+	public MLMS(ArrayQueue<Customer> readFileData) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void result() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 

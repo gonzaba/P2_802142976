@@ -1,6 +1,7 @@
 package policies;
 
-
+import classes.ArrayQueue;
+import objects.Customer;
 
 /**
  * 
@@ -13,5 +14,14 @@ package policies;
 // Multiple Lines Multiple Servers and Balanced Waiting Times
 
 public class MLMSBWT {
+
+	public MLMSBWT(ArrayQueue<Customer> readFileData) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void result() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

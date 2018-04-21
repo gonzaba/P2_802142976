@@ -1,5 +1,7 @@
 package policies;
 
+import classes.ArrayQueue;
+import objects.Customer;
 
 /**
  * 
@@ -12,5 +14,14 @@ package policies;
 //Multiple Lines Multiple Servers and Balanced Line Lengths
 
 public class MLMSBLL {
+
+	public MLMSBLL(ArrayQueue<Customer> readFileData) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void result() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

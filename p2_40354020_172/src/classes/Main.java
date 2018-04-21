@@ -5,138 +5,239 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
-import javax.sound.sampled.LineUnavailableException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import objects.Customer;
+import policies.MLMS;
+import policies.MLMSBLL;
+import policies.MLMSBWT;
 import policies.SLMS;
 
 /**
  * 
- * @author B�rbara P. Gonz�lez Rivera - 802-14-2976
+ * @author Barbara P. Gonzalez Rivera - 802-14-2976
  * @author Ramineh Lopez - 402-12-3657
  * ICOM4035 - 030
- * The main class reads the valid data text files inside inputFile and extracts the time stamps.  It cal
- */
+ **/
+
+
+
 
 public class Main {
+
 	
-	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
-		//Queue that will hold the list of files to be processed
-		ArrayQueue<String> listOfFiles = new ArrayQueue<String>();
+		/**
+		 * First step is to find the file called dataFiles.txt that will hold
+		 * the name of files that 
+		 *  
+		 *  */
+
+		//ArrayList that will hold the list of files that will be processed
+		//individually with each policy
+		ArrayQueue<String> listOfFiles = new ArrayQueue<>();
+		
 		
 		//Folder where the file that holds the names of files is located
 		String parentDirectory = "inputFiles";
-		
+				
 		//Looks for the dataFiles.txt file in the inputFiles.
 		File file = new File(parentDirectory, "dataFiles.txt");
 		
-		BufferedReader br = null;
-        String fileName;
-   
-        try {
-
-            br = new BufferedReader(new FileReader(file));
-            while ((fileName = br.readLine()) != null) {
-            	
-            	
-            System.out.println(fileName);
-            //Enqueuing the list of files to analyze
-            listOfFiles.enqueue(fileName);  
-                     
-              
-            }
-        }catch (FileNotFoundException e) {
+		 String fileName = "";
+		 Scanner sc = null;
+		 
+		 try {
+			 //Created scanner to read the file
+			 sc = new Scanner(file);	
+			 
+			//while Scanner has a another line to read
+			while(sc.hasNext()) {				
+				
+				//Find the next string
+				fileName = sc.next();
+			
+				listOfFiles.enqueue(fileName);
+				
+			}//end of while
+		
+		//File not found in directory
+		} catch (FileNotFoundException e) {
+			System.out.println("Input file not found");
+			e.printStackTrace();
+		}catch (IOException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();}
+        }finally {
+            if (sc != null) {
+                sc.close();
             }
         }//end of try
-        
-        
-        
-        //will read the first file. Later this must be put in a while
-        //to read all files in the listOfFiles.
-       
-        	
-      while(!listOfFiles.isEmpty()) {
-    	   
-       ArrayQueue<Customer> listToProcess = readFileData(listOfFiles);
-       
-      }
-       
-    //  SLMS policy1 = new SLMS(listToProcess);
-    //policy1.result();
-       
-        
-	}//end of main(String[] args)
-	
-    public static ArrayQueue<Customer> readFileData(ArrayQueue<String> listOfFiles) {
-    		
-    		
-    		//Queue that will hold the list of data about customers
-    		ArrayQueue<Customer> listOfCustomers = new ArrayQueue<Customer>();
-    		
-    		//Folder where the file is supposed to be located
-    		String parentDirectory = "inputFiles";
-    		
-    		//getting the name of the file from the list of files to read
-    		String fileName = listOfFiles.dequeue();
-    		
-    		//Looks for the file in the inputFiles with that direction.
-    		File file = new File(parentDirectory, fileName);
-    		
-    		BufferedReader br = null;
-            String line;
-            int id = 1;
-       
-            try {
+		 
+	 /**
+	  * After all file names have been extracted from the dataFile.txt now comes the part
+	  * of reading each file to create the list of customers. 
+	  * 
+	  * Then it will pass the list of customers to each approach and it will be processed.
+	  * 
+	  *  
+	  **/
+		   
+	      
+		 
+		 
+	     //uncomment when everything is completed
+	    while(!listOfFiles.isEmpty()) {
+	    	readFileData(listOfFiles);
+	   //   SLMS policy1 = new SLMS(readFileData(listOfFiles));
+		//  policy1.result();
+		
+		 /**
+		  *  
+		  *  //uncomment when each policy is completed
+		  *  
+		  *   MLMS policy2 = new MLMS(readFileData(listOfFiles));
+		  policy2.result();
+		  
+		  MLMSBLL policy3 = new MLMSBLL(readFileData(listOfFiles));
+		  policy3.result();
+		  
+		  MLMSBWT policy4 = new MLMSBWT(readFileData(listOfFiles));
+		  policy4.result();
+	     */ 
+	    }
+		 
+		  
+		  
+		  
+		 
+	     
+		
+	}//end of main
 
-            	
-                br = new BufferedReader(new FileReader(file));
-                while ((line = br.readLine()) != null) {
-                	
-                System.out.println(line);
-                	
-                	String[] part = line.split(" ");
-                	
-                	Customer job = new Customer();
-                	
-                	job.setId(id);
-                	job.setArrivalTime(Integer.parseInt(part[0]));
-                	job.setServiceTime(Integer.parseInt(part[1]));
-                	job.setRemainingTime(Integer.parseInt(part[1]));
-                	job.setDepartureTime(0);
-                	id++;
-                System.out.println("Customer of file= " + fileName + "   " + job);
-                listOfCustomers.enqueue(job);
-                                 
-                }
-            }catch (FileNotFoundException e) {
-            	System.out.println("Input file not Found.");
-                e.printStackTrace();
-            } catch (IOException e) {           	
-                e.printStackTrace();
-                
-            } finally {
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();}
-                }
-            }//end of try
-         return listOfCustomers;
-    }//end of readFileData
-    
-  
-            
-}// end of Main
+	
+	
+	/**
+	 * 
+	 * @param listOfFiles
+	 * @return
+	 */
+	
+	private static ArrayQueue<Customer> readFileData(ArrayQueue<String> listOfFiles) throws IOException {
+		
+		//Queue that will hold the list of data about customers
+		ArrayQueue<Customer> listOfCustomers = new ArrayQueue<Customer>();
+		
+		//Folder where the file is supposed to be located
+		String parentDirectory = "inputFiles";
+		
+		//getting the name of the file from the list of files to read
+		String fileName = listOfFiles.dequeue();
+		
+		
+		//Looks for the file in the inputFiles with that direction.
+		File file = new File(parentDirectory, fileName);
+		
+	
+		Scanner sc = null;
+		
+		//checks if the name files inside of dataFiles are .txt format
+		if(!fileName.contains(".txt")) {
+			
+			fileCreatorExceptions(2, fileName);
+		}
+		else {			
+			  //id given to the customer for easier debugging
+	        int id = 1;
+	   
+	        try {
+
+	        	sc = new Scanner(file).useDelimiter("\\s");
+	        	
+	        	//Checks to see if file is int format if not then throw message
+	        	if(!sc.hasNextInt()) {
+	        		fileCreatorExceptions(2, fileName);
+	        	}
+	        	else {
+	        		 while (sc.hasNext()) {
+	 	            	
+	 	            	int ar = sc.nextInt();
+	 	           		int st = sc.nextInt();
+	 	           	
+	 	            	Customer job = new Customer();
+	 	            	
+	 	            	job.setId(id);
+	 	            	job.setArrivalTime(ar);
+	 	            	job.setServiceTime(st);
+	 	            	job.setRemainingTime(st);
+	 	            	job.setDepartureTime(0);
+	 	            	id++;
+	 	            
+	 	            	System.out.println(fileName + " " + job);
+	 	            	listOfCustomers.enqueue(job);
+	        		 }                            
+	            }//end of else
+	        	}catch (FileNotFoundException e) {
+	        		fileCreatorExceptions(1, fileName);
+	            	e.printStackTrace();
+	        
+	        	} catch (IOException e) {           	
+	        		e.printStackTrace();
+	            
+	        	} finally {
+	            	if (sc != null) {
+	                	sc.close();
+	            	}
+	        	}//end of try
+	      
+		}
+		
+		
+		return listOfCustomers;
+		
+       
+      
+        
+	}//end of readFileData
+	
+	
+	
+	public static void fileCreatorExceptions(int caseType, String fileName) throws FileNotFoundException, UnsupportedEncodingException {
+		
+		/*
+		 * Here it will create the new files with the new name format.
+		 * These files created here are specifically for the exceptions.
+		 * 
+		 * There exist another method that will print the output of the files
+		 * that have the valid format.
+		 * 
+		 */
+		
+		fileName.split("\\.");
+		
+		PrintWriter writer = new PrintWriter(fileName +"_OUT.txt", "UTF-8");
+		
+		//If file does not exist
+		if(caseType==1) {
+			
+			writer.println("Input file not found.");
+			
+		}
+		
+		//If file has no data, is incomplete, or does not fit the expected format.
+		if(caseType==2) {
+			
+			writer.println("Input file does not meet the expected format or it is empty.");
+		}
+		
+		writer.close();
+		
+		
+	}
+	
+	
+	
+}//end of Main
