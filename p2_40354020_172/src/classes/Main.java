@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import objects.Customer;
+import objects.Result;
 import policies.MLMS;
 import policies.MLMSBLL;
 import policies.MLMSBWT;
@@ -83,17 +84,33 @@ public class Main {
 	  * 
 	  * Then it will pass the list of customers to each approach and it will be processed.
 	  * 
-	  *  
 	  **/
 		   
-	      
+	      int numberOfCustomers =0;
 		 
 		 
 	     //uncomment when everything is completed
 	    while(!listOfFiles.isEmpty()) {
-	    	readFileData(listOfFiles);
-	   //   SLMS policy1 = new SLMS(readFileData(listOfFiles));
-		//  policy1.result();
+	    	
+	    String f = listOfFiles.first();
+	    
+	     ArrayQueue<Customer> listcust = readFileData(listOfFiles);
+	     
+	     numberOfCustomers = listcust.size();
+	     
+	     if(numberOfCustomers>0) { 
+	    	 fileCreator(null, numberOfCustomers, f);
+	     }
+	        
+	    
+	//  SLMS SLMS1 = new SLMS(listcust, 1);
+	    
+	//  SLMS1.result();
+	     
+	     //SLMS SLMS3 = new SLMS(readFileData(listOfFiles), 3);
+	     
+	    // SLMS SLMS5 = new SLMS(readFileData(listOfFiles), 5);
+		
 		
 		 /**
 		  *  
@@ -108,7 +125,7 @@ public class Main {
 		  MLMSBWT policy4 = new MLMSBWT(readFileData(listOfFiles));
 		  policy4.result();
 	     */ 
-	    }
+	   }
 		 
 		  
 		  
@@ -136,7 +153,6 @@ public class Main {
 		
 		//getting the name of the file from the list of files to read
 		String fileName = listOfFiles.dequeue();
-		
 		
 		//Looks for the file in the inputFiles with that direction.
 		File file = new File(parentDirectory, fileName);
@@ -233,9 +249,22 @@ public class Main {
 			writer.println("Input file does not meet the expected format or it is empty.");
 		}
 		
+		if(caseType==3) {
+			writer.println("YAY");
+		}
+		
 		writer.close();
 		
 		
+	}
+	
+	
+	public static void fileCreator(Result r, int numberOfCust, String fileName) throws FileNotFoundException, UnsupportedEncodingException {
+		
+		fileName.split("\\.");
+		PrintWriter writer2 = new PrintWriter(fileName +"_OUT.txt", "UTF-8");
+		writer2.println("Number of customers is: " + numberOfCust);
+		writer2.close();
 	}
 	
 	
