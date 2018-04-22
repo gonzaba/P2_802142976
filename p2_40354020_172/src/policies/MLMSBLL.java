@@ -13,13 +13,15 @@ import objects.Customer;
 
 public class MLMSBLL {
 
-	public MLMSBLL(ArrayQueue<Customer> readFileData) {
+	public MLMSBLL(ArrayQueue<Customer> copyOf, int i) {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void result() {
+	public String result() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
+	
 
 }

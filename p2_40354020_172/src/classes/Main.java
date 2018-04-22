@@ -11,6 +11,7 @@ import java.util.Scanner;
 import objects.Customer;
 import objects.Result;
 import policies.MLMS;
+import policies.MLMSBLL;
 import policies.SLMS;
 
 /**
@@ -100,9 +101,7 @@ public class Main {
 	 		writer2.println("Number of customers is: " + listcust.size());
 	 		
 	 		SLMS SLMS1 = new SLMS(copyOf(listcust), 1);    
-	 		writer2.println("SLMS 1: " + SLMS1.result());
-	 		
-	 		//System.out.println(listcust.dequeue());	 		
+	 		writer2.println("SLMS 1: " + SLMS1.result());		
 
 	 		SLMS SLMS3 = new SLMS(copyOf(listcust), 3);
 	 		writer2.println("SLMS 3: " + SLMS3.result());
@@ -112,8 +111,35 @@ public class Main {
 	 		
 	 		
 	 		
-	 		//MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
-	 	//	writer2.println("MLMS 1: " + MLMS1.result());
+	 		/**
+	 		 * 
+	 		 * Uncomment when implementation for MLMS is completed
+	 		 * 
+	 		 * MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
+	 		writer2.println("MLMS 1: " + MLMS1.result());
+	 		
+	 		MLMS MLMS3 = new MLMS(copyOf(listcust), 3);
+	 		writer2.println("MLMS 3: " + MLMS3.result());
+	 		
+	 		MLMS MLMS5 = new MLMS(copyOf(listcust), 5);
+	 		writer2.println("MLMS 5: " + MLMS5.result());
+	 		 */
+	 		
+	 		/**
+	 		 * 
+	 		 * Uncomment when implementation for MLMSBLL is completed.
+	 		 * 
+	 		 * MLMSBLL MLMSBLL1 = new MLMSBLL(copyOf(listcust), 1);
+	 		writer2.println("MLMSBLL 1: " + MLMSBLL1.result());
+	 		
+	 		MLMSBLL MLMSBLL3 = new MLMSBLL(copyOf(listcust), 3);
+	 		writer2.println("MLMSBLL 3: " + MLMSBLL3.result());
+	 		
+	 		MLMSBLL MLMSBLL5 = new MLMSBLL(copyOf(listcust), 5);
+	 		writer2.println("MLMSBLL 5: " + MLMSBLL5.result());
+	 		
+	 		 */
+	 		
 						
 			writer2.close();
 		 	  
