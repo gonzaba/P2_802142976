@@ -90,7 +90,7 @@ public class Main {
 		   
 		 
 	     //uncomment when everything is completed
-//	   while(!listOfFiles.isEmpty()) {
+   while(!listOfFiles.isEmpty()) {
 	    	
 	    String f = listOfFiles.first();
 	    
@@ -150,21 +150,9 @@ public class Main {
 		 	  
 		   
 	 		
-	//    }
+	    }
 	   
 		
-		
-		 /**  
-		  *  //uncomment when each policy is completed
-		  *   
-		  
-		  MLMSBLL policy3 = new MLMSBLL(readFileData(listOfFiles));
-		  policy3.result();
-		  
-		  MLMSBWT policy4 = new MLMSBWT(readFileData(listOfFiles));
-		  policy4.result();
-	     */ 
-	  
 	}//end of while
 	    
 	
