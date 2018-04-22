@@ -126,7 +126,7 @@ public class MLMS {
 							//sets the depature time to the current time in the system.
 							
 							p.setDepartureTime(time);
-							System.out.println("Depature" + p);
+							//System.out.println("Depature" + p);
 							//places the customers on the list of already serviced customers.
 							terminatedJobs.enqueue(p);
 					}
@@ -148,14 +148,14 @@ public class MLMS {
 						
 					while(!listToCust.isEmpty() && listToCust.first().getArrivalTime()==time) {	
 						Customer c = listToCust.dequeue();
-						System.out.println("Entrando a ListToProcess= " + c);
+						//System.out.println("Entrando a ListToProcess= " + c);
 						
 						nextAvailable(listOfServicePost, c);
 					}
 					
 					serviceStarts(time);
 					time++;
-				System.out.println("Time = " +time);
+				//System.out.println("Time = " +time);
 					
 					
 				}//end of while
@@ -198,7 +198,7 @@ public class MLMS {
 					&& !(allListToProcessAreEmpty(listOfServicePost))) {
 				listOfServicePost.get(i).setCustomer(listOfServicePost.get(i).getPersonalWaitingLine().dequeue());
 				listOfServicePost.get(i).getCustomer().setWaitingTime(time-listOfServicePost.get(i).getCustomer().getArrivalTime());
-				System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
+			//	System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
 			}
 		}
 	}
@@ -235,7 +235,7 @@ public class MLMS {
 					
 				lista.get(i).getCustomer().decreaseRemainingTime();
 				
-				System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
+			//	System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
 				}
 			}
 	}//end of decreseTime
@@ -252,21 +252,20 @@ public class MLMS {
 			while(!(terminatedJobs.isEmpty())) {
 				
 				valor2 = terminatedJobs.first().getWaitingTIme();
-				System.out.println(valor2);
+				//System.out.println(valor2);
 				totalTime= valor2 + totalTime;
 				
 				//System.out.println("totalTime = "  +totalTime);
 				terminatedJobs.dequeue();
 			}
 			
-			System.out.println(totalTime/5);
+			//System.out.println(totalTime/5);
 			totalTime= totalTime/ (float)count;
 			
 			r.setAverageWaitingTime(totalTime);
 			
 			//System.out.print("Averange Time in System is: ");
-			System.out.print("Total time"+ 
-			totalTime);
+			//System.out.print("Total time"+ totalTime);
 			
 	}//end of calculateAverageTime
 	
@@ -291,7 +290,7 @@ public class MLMS {
 		int minNumberOfPersonsWaiting;
 		
 		if(lista.size()==1) {
-			System.out.println("Entrando a SP#0" + c);
+			//System.out.println("Entrando a SP#0" + c);
 			lista.get(0).getPersonalWaitingLine().enqueue(c);
 		}
 		else {
@@ -310,7 +309,7 @@ public class MLMS {
 				}
 		
 			}	
-			//	System.out.println("Entrando a SPList#" + index + " " + c);
+				//System.out.println("Entrando a SPList#" + index + " " + c);
 				lista.get(index).getPersonalWaitingLine().enqueue(c);	
 				
 			

@@ -12,6 +12,7 @@ import objects.Customer;
 import objects.Result;
 import policies.MLMS;
 import policies.MLMSBLL;
+import policies.MLMSBWT;
 import policies.SLMS;
 
 /**
@@ -137,6 +138,20 @@ public class Main {
 	 		writer2.println("MLMSBLL 5: " + MLMSBLL5.result());
 	 		
 	 		 */
+	 		
+	 		/**
+	 		 * Uncomment when the implementation for MLMSBWT1 is completed
+	 		 * 
+	 		 * MLMSBWT MLMSBWT1 = new MLMSBWT(copyOf(listcust),1);
+	 		writer2.println("MLMSBWT 1: " + MLMSBWT1.result(););
+	 		
+	 		MLMSBWT MLMSBWT3 = new MLMSBWT(copyOf(listcust),3);
+	 		writer2.println("MLMSBWT 3: " + MLMSBWT3.result(););
+	 		
+	 		MLMSBWT MLMSBWT5 = new MLMSBWT(copyOf(listcust),5);
+	 		writer2.println("MLMSBWT 5: " + MLMSBWT5.result(););
+	 		 */
+	 		
 	 		
 						
 			writer2.close();
