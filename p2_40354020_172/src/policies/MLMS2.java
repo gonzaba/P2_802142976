@@ -95,45 +95,44 @@ public class MLMS {
 				//set time
 				int time = listToCust.first().getArrivalTime();	
 		
+				while(!listToCust.isEmpty() || allSPBusy(listOfServicePost) || !allAvailable(listOfServicePost)) {
 				
-				while(!(time==20) ) {
+					decreaseTime(listOfServicePost);
 					
+					/**
+					 * ---Service-Completed Event---
+					 * Verifies if the remaining time of the customer is equal to zero in
+					 * each service post 
+					 */
 				
-				decreaseTime(listOfServicePost);
-				
-				
-				/**
-				 * ---Service-Completed Event---
-				 * Verifies if the remaining time of the customer is equal to zero in
-				 * each service post 
-				 */
-			
-				for(int i=0; i<listOfServicePost.size(); i++) {
-					//Verifies first if the service post is occupied with someone
-					//it its available then it won't enter de condition about
-					//removing someone because it doesn't have a customer.
-					
-					if(!listOfServicePost.get(i).isAvailable()) {
-						//Looks for service time and checks if its equal to 0
-						//if its equal to 0 then it is removed from the service post.
-						if(listOfServicePost.get(i).getCustomer().getRemainingTime()==0) {
-							
-							Customer p = listOfServicePost.get(i).removeCustomer();
-							//sets the depature time to the current time in the system.
-							
-							p.setDepartureTime(time);
-							System.out.println("Depature" + p);
-							//places the customers on the list of already serviced customers.
-							terminatedJobs.enqueue(p);
+					for(int i=0; i<listOfServicePost.size(); i++) {
+						//Verifies first if the service post is occupied with someone
+						//it its available then it won't enter de condition about
+						//removing someone because it doesn't have a customer.
+						
+						if(!listOfServicePost.get(i).isAvailable()) {
+							//Looks for service time and checks if its equal to 0
+							//if its equal to 0 then it is removed from the service post.
+							if(listOfServicePost.get(i).getCustomer().getRemainingTime()==0) {
+								
+								Customer p = listOfServicePost.get(i).removeCustomer();
+								//sets the depature time to the current time in the system.
+								
+								p.setDepartureTime(time);
+								//System.out.println("Depature" + p);
+								//places the customers on the list of already serviced customers.
+								terminatedJobs.enqueue(p);
+						}
 					}
-				}
-				}	//end of for
-				
-				/**
-				 * Service-Starts Event
-				 */
-				
-				serviceStarts(time);
+					}	//end of for
+					
+					
+					
+					/**
+					 * Service-Starts Event
+					 */
+					
+					serviceStarts(time);
 
 					
 					/**
@@ -141,20 +140,24 @@ public class MLMS {
 					 * Checks when people arrive. If their arrival time is equal to the time currently in the system
 					 * they are added to the line of customers waiting to be served.
 					 */					
-						
+					
+					
 					while(!listToCust.isEmpty() && listToCust.first().getArrivalTime()==time) {	
 						Customer c = listToCust.dequeue();
-						System.out.println("Entrando a ListToProcess= " + c);
+						//System.out.println("Entrando a ListToProcess= " + c);
 						
 						nextAvailable(listOfServicePost, c);
-					}
+						
+						}
+					
+					
 					
 					serviceStarts(time);
+					
 					time++;
-				//	System.out.println(time);
 					
-					
-				}
+				}//end of while
+				
 				
 				timeAllServicesCompleted = time;
 				
@@ -171,15 +174,17 @@ public class MLMS {
 
 	public void serviceStarts(int time) {
 		
-	//	System.out.println("All are empty"+ allListToProcessAreEmpty(listOfServicePost));
-		
-	//	System.out.println("All are busy " + allSPBusy(listOfServicePost));
-		
-		for(int i=0; i<listOfServicePost.size();i++) {
-			if(listOfServicePost.get(i).isAvailable() && !(listOfServicePost.get(i).getPersonalWaitingLine().size()==0)
-					&& !(allListToProcessAreEmpty(listOfServicePost))) {
-				listOfServicePost.get(i).setCustomer(listOfServicePost.get(i).getPersonalWaitingLine().dequeue());
-				System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
+		while(!allListToProcessAreEmpty(listOfServicePost) && !(allSPBusy(listOfServicePost)==true)) {
+			for(int i=0; i<listOfServicePost.size();i++) {
+				if(listOfServicePost.get(i).isAvailable() && !(allListToProcessAreEmpty(listOfServicePost))) {
+					
+					listOfServicePost.get(i).setCustomer(listOfServicePost.get(i).getPersonalWaitingLine().dequeue());
+					
+					listOfServicePost.get(i).getCustomer().setWaitingTime(time-listOfServicePost.get(i).getCustomer().getArrivalTime());
+					//System.out.println(listOfServicePost.get(i).getCustomer());
+					System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
+				
+				}
 			}
 		}
 	}
@@ -188,6 +193,19 @@ public class MLMS {
 		
 		
 
+	private boolean allAvailable(ArrayList<ServicePost> lista) {
+		
+		boolean areBusy = true;
+		
+		for(int i=0; i<lista.size();i++) {
+			
+		if(lista.get(i).isAvailable()) {
+			areBusy = false;
+		}
+		
+		}
+		return areBusy;
+	}
 
 	
 	private boolean allSPBusy(ArrayList<ServicePost> lista) {
@@ -197,7 +215,6 @@ public class MLMS {
 		for(int i=0; i<lista.size();i++) {
 			
 		if(!lista.get(i).isAvailable()) {
-			//System.out.print("here");
 			areAvailable = false;
 		}
 		
@@ -219,7 +236,7 @@ public class MLMS {
 					
 				lista.get(i).getCustomer().decreaseRemainingTime();
 				
-				System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
+			//	System.out.println(listOfServicePost.get(i).getCustomer());
 				}
 			}
 	}//end of decreseTime
@@ -260,7 +277,6 @@ public class MLMS {
 		boolean isTrue = true;
 		
 		for(int i=0;i<lista.size();i++) {
-		//	System.out.println("Size lista"+i+ "="+ lista.get(i).getPersonalWaitingLine().size());
 			if(!(lista.get(i).getPersonalWaitingLine().isEmpty())) {
 				isTrue = false;
 			}
@@ -270,33 +286,22 @@ public class MLMS {
 	
 	public void nextAvailable(ArrayList<ServicePost> lista, Customer c) {
 		
-		//System.out.println(lista.size());
 		int minNumberOfPersonsWaiting;
 		
 		if(lista.size()==1) {
-			System.out.println("Entrando a SP#0" + c);
 			lista.get(0).getPersonalWaitingLine().enqueue(c);
 		}
 		else {
 			
-			
 			minNumberOfPersonsWaiting = lista.get(0).getPersonalWaitingLine().size();
-			int index = 0;
-			
-			
 			for(int i=1;i<lista.size();i++) {
-				
-				//System.out.println(	minNumberOfPersonsWaiting + "vs " + lista.get(i).getPersonalWaitingLine().size());
 				if(lista.get(i).getPersonalWaitingLine().size() < minNumberOfPersonsWaiting) {
-					minNumberOfPersonsWaiting = lista.get(i).getPersonalWaitingLine().size();
-					index = i;
+					minNumberOfPersonsWaiting = i;
 				}
-		
-			}	
-			//	System.out.println("Entrando a SPList#" + index + " " + c);
-				lista.get(index).getPersonalWaitingLine().enqueue(c);	
 				
-			
+				lista.get(minNumberOfPersonsWaiting).getPersonalWaitingLine().enqueue(c);	
+				
+			}
 		}
 		
 		

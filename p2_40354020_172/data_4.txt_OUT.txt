@@ -1,4 +1,2 @@
 Number of customers is: 14
-SLMS 1: 78 28.357143 0
-SLMS 3: 30 5.785714 0
-SLMS 5: 23 2.0 0
+MLMS 1: 0 0.0 0

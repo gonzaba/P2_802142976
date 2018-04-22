@@ -89,7 +89,7 @@ public class Main {
 		   
 		 
 	     //uncomment when everything is completed
-   while(!listOfFiles.isEmpty()) {
+  // while(!listOfFiles.isEmpty()) {
 	    	
 	    String f = listOfFiles.first();
 	    
@@ -104,20 +104,20 @@ public class Main {
 	 		
 	 		writer2.println("Number of customers is: " + listcust.size());
 	 		
-	 		//SLMS SLMS1 = new SLMS(copyOf(listcust), 1);    
-	 	//	writer2.println("SLMS 1: " + SLMS1.result());		
+	 		SLMS SLMS1 = new SLMS(copyOf(listcust), 1);    
+	 		writer2.println("SLMS 1: " + SLMS1.result());		
 
-	 	//	SLMS SLMS3 = new SLMS(copyOf(listcust), 3);
-	 	//	writer2.println("SLMS 3: " + SLMS3.result());
+	 		SLMS SLMS3 = new SLMS(copyOf(listcust), 3);
+	 		writer2.println("SLMS 3: " + SLMS3.result());
 	 	   
-	 	//	SLMS SLMS5 = new SLMS(copyOf(listcust), 5);
-	 	//	writer2.println("SLMS 5: " + SLMS5.result());
-	 		
-	 		
+	 		SLMS SLMS5 = new SLMS(copyOf(listcust), 5);
+	 		writer2.println("SLMS 5: " + SLMS5.result());
 	 		
 	 		MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
 	 		writer2.println("MLMS 1: " + MLMS1.result());
 	 		
+	 		MLMS MLMS3 = new MLMS(copyOf(listcust), 3);
+	 		writer2.println("MLMS 3: " + MLMS3.result());
 	 		/**
 	 		 * 
 	 		 * Uncomment when implementation for MLMS is completed
@@ -152,7 +152,7 @@ public class Main {
 	    }
 	   
 		
-	}//end of while
+//	}//end of while
 	    
 	
 		  
