@@ -37,8 +37,7 @@ public class Main {
 		/**
 		 * First step is to find the file called dataFiles.txt that will hold
 		 * the name of files that 
-		 *  
-		 *  */
+		 **/
 
 		//ArrayList that will hold the list of files that will be processed
 		//individually with each policy
@@ -105,25 +104,25 @@ public class Main {
 	 		
 	 		writer2.println("Number of customers is: " + listcust.size());
 	 		
-	 		SLMS SLMS1 = new SLMS(copyOf(listcust), 1);    
-	 		writer2.println("SLMS 1: " + SLMS1.result());		
+	 		//SLMS SLMS1 = new SLMS(copyOf(listcust), 1);    
+	 	//	writer2.println("SLMS 1: " + SLMS1.result());		
 
-	 		SLMS SLMS3 = new SLMS(copyOf(listcust), 3);
-	 		writer2.println("SLMS 3: " + SLMS3.result());
+	 	//	SLMS SLMS3 = new SLMS(copyOf(listcust), 3);
+	 	//	writer2.println("SLMS 3: " + SLMS3.result());
 	 	   
-	 		SLMS SLMS5 = new SLMS(copyOf(listcust), 5);
-	 		writer2.println("SLMS 5: " + SLMS5.result());
+	 	//	SLMS SLMS5 = new SLMS(copyOf(listcust), 5);
+	 	//	writer2.println("SLMS 5: " + SLMS5.result());
 	 		
 	 		
+	 		
+	 		MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
+	 		writer2.println("MLMS 1: " + MLMS1.result());
 	 		
 	 		/**
 	 		 * 
 	 		 * Uncomment when implementation for MLMS is completed
 	 		 * 
-	 		 * MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
-	 		writer2.println("MLMS 1: " + MLMS1.result());
-	 		
-	 		MLMS MLMS3 = new MLMS(copyOf(listcust), 3);
+	 		 * MLMS MLMS3 = new MLMS(copyOf(listcust), 3);
 	 		writer2.println("MLMS 3: " + MLMS3.result());
 	 		
 	 		MLMS MLMS5 = new MLMS(copyOf(listcust), 5);
@@ -319,6 +318,7 @@ public class Main {
 			copy.enqueue(copyC);
 			i++;
 		}
+		
 		return copy;
 		
 	}

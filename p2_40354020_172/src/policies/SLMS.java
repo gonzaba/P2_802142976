@@ -228,7 +228,6 @@ public class SLMS {
 		
 		//computing time
 		float totalTime = 0;
-		float valor1 = 0;
 		float valor2 = 0;
 		
 		
