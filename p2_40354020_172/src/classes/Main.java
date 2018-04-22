@@ -5,14 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 import objects.Customer;
-import objects.Result;
 import policies.MLMS;
 import policies.MLMSBLL;
-import policies.MLMSBWT;
 import policies.SLMS;
 
 /**
@@ -27,7 +24,6 @@ import policies.SLMS;
  * This class will essentially run the show. 
  *
  */
-
 
 
 public class Main {
@@ -72,7 +68,7 @@ public class Main {
 		} catch (FileNotFoundException e) {
 			System.out.println("Input file not found");
 			e.printStackTrace();
-		}catch (IOException e) {
+		}catch (@SuppressWarnings("hiding") IOException e) {
             e.printStackTrace();
         }finally {
             if (sc != null) {
@@ -122,7 +118,6 @@ public class Main {
 	 		
 	 		MLMS MLMS5 = new MLMS(copyOf(listcust), 5);
 	 		writer2.println("MLMS 5: " + MLMS5.result());
-	 		 
 	 		
 	 		MLMSBLL MLMSBLL1 = new MLMSBLL(copyOf(listcust), 1);
 	 		writer2.println("MLMSBLL 1: " + MLMSBLL1.result());
@@ -166,9 +161,7 @@ public class Main {
 	
 		  
 		  
-		  
 		 
-	     
 		
 	}//end of main
 
@@ -180,6 +173,7 @@ public class Main {
 	 * @return
 	 */
 	
+	@SuppressWarnings("resource")
 	private static ArrayQueue<Customer> readFileData(ArrayQueue<String> listOfFiles) throws IOException {
 		
 		//Queue that will hold the list of data about customers
