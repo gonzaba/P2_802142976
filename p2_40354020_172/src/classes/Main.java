@@ -22,6 +22,11 @@ import policies.SLMS;
  **/
 
 
+/**
+ * This class will essentially run the show. 
+ *
+ */
+
 
 
 public class Main {
@@ -85,7 +90,7 @@ public class Main {
 		   
 		 
 	     //uncomment when everything is completed
-	   while(!listOfFiles.isEmpty()) {
+//	   while(!listOfFiles.isEmpty()) {
 	    	
 	    String f = listOfFiles.first();
 	    
@@ -145,7 +150,7 @@ public class Main {
 		 	  
 		   
 	 		
-	    }
+	//    }
 	   
 		
 		

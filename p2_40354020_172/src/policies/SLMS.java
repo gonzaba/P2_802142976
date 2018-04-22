@@ -29,6 +29,7 @@ public class SLMS {
 	ArrayQueue<Customer> terminatedJobs = new ArrayQueue<>();
 	
 	int timeAllServicesCompleted = 0;
+	
 	int averageWaitingTime = 0;
 	
 	int numberOfServicePosts = 0;
@@ -41,8 +42,6 @@ public class SLMS {
 		this.numberOfServicePosts = i;
 	 }
 
-	 
-	 
 	 
 	public Result result() {
 		
@@ -112,7 +111,7 @@ public class SLMS {
 						//sets the depature time to the current time in the system.
 						
 						p.setDepartureTime(time);
-						//System.out.println(p);
+						//System.out.println("Depature" + p);
 						//places the customers on the list of already serviced customers.
 						terminatedJobs.enqueue(p);
 				}
@@ -124,7 +123,7 @@ public class SLMS {
 			 * Service-Starts Event
 			 */
 			
-			serviceStarts();
+			serviceStarts(time);
 			
 			
 			/**
@@ -141,11 +140,11 @@ public class SLMS {
 				
 				}
 			
-			serviceStarts();
+		serviceStarts(time);
 			
 			
 			time++;	
-		//	System.out.println("Time = " + time);
+	//	System.out.println("Time = " + time);
 			//System.out.println("List no esta vacia:" + !listToCust.isEmpty());
 			//System.out.println("Todos SP are busy: " + allSPBusy(listOfServicePost));
 			//System.out.println("Todos estan available" + allAvailable(listOfServicePost));
@@ -238,12 +237,10 @@ public class SLMS {
 	//System.out.println("list Size: " +count);
 		
 		while(!(terminatedJobs.isEmpty())) {
-			valor1 = terminatedJobs.first().getArrivalTime();
-			valor2 = terminatedJobs.first().getDepartureTime();
 			
-			//System.out.println(valor1);
-			//System.out.println(valor2);
-			totalTime= (valor2-valor1) + totalTime;
+			valor2 = terminatedJobs.first().getWaitingTIme();
+			
+			totalTime= valor2 + totalTime;
 			
 			//System.out.println("totalTime = "  +totalTime);
 			terminatedJobs.dequeue();
@@ -260,12 +257,16 @@ public class SLMS {
 		//System.out.print(totalTime);
 	}
 	
-	public void serviceStarts() {
+	
+
+	public void serviceStarts(int time) {
 		
 		while(!listToProcess.isEmpty() && !(allSPBusy(listOfServicePost)==true)) {
 			for(int i=0; i<listOfServicePost.size();i++) {
 				if(listOfServicePost.get(i).isAvailable() && !(listToProcess.isEmpty())) {
 					listOfServicePost.get(i).setCustomer(listToProcess.dequeue());
+					listOfServicePost.get(i).getCustomer().setWaitingTime(time-listOfServicePost.get(i).getCustomer().getArrivalTime());
+					//System.out.println(listOfServicePost.get(i).getCustomer());
 					//System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
 				}
 			}
