@@ -282,6 +282,15 @@ public class Main {
 		
 	}
 	
+	
+	/**
+	 * 
+	 * @param listcust to copy
+	 * @return a copy of the list that doesn't have the same
+	 * reference to the original list. Its a completely new list with the same elements
+	 * but they are not linked in any way. Therefore you can edit the copy list and the original
+	 * will stay the same
+	 */
 	public static ArrayQueue<Customer> copyOf(ArrayQueue<Customer>listcust){
 		
 		ArrayQueue<Customer> copy = new ArrayQueue<>();
