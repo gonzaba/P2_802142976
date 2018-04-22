@@ -141,7 +141,7 @@ public class SLMS {
 				
 				}
 			
-			serviceStarts();
+			//serviceStarts();
 			
 			
 			time++;	

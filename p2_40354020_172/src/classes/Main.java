@@ -112,8 +112,8 @@ public class Main {
 	 		
 	 		
 	 		
-	 		MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
-	 		writer2.println("MLMS 1: " + MLMS1.result());
+	 		//MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
+	 	//	writer2.println("MLMS 1: " + MLMS1.result());
 						
 			writer2.close();
 		 	  

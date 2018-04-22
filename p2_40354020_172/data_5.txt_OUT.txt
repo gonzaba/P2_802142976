@@ -1,4 +1,4 @@
 Number of customers is: 25
-SLMS 1: 140 59.88 0
-SLMS 3: 49 18.52 0
-SLMS 5: 34 10.88 0
+SLMS 1: 141 60.88 0
+SLMS 3: 50 19.52 0
+SLMS 5: 35 11.88 0
