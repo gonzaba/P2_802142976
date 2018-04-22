@@ -139,7 +139,6 @@ public class MLMS {
 				
 				serviceStarts(time);
 
-					
 					/**
 					 * Arrival Event
 					 * Checks when people arrive. If their arrival time is equal to the time currently in the system
@@ -161,9 +160,7 @@ public class MLMS {
 				}//end of while
 				
 				timeAllServicesCompleted = time;
-				
 				finalResult.setTimeServicesCompleted(timeAllServicesCompleted);
-				
 				calculateAverageTime(terminatedJobs,finalResult);
 							
 		
@@ -281,21 +278,15 @@ public class MLMS {
 			
 			minNumberOfPersonsWaiting = lista.get(0).getPersonalWaitingLine().size();
 			int index = 0;
-			
-			
 			for(int i=1;i<lista.size();i++) {
-				
 				//System.out.println(	minNumberOfPersonsWaiting + "vs " + lista.get(i).getPersonalWaitingLine().size());
 				if(lista.get(i).getPersonalWaitingLine().size() < minNumberOfPersonsWaiting) {
 					minNumberOfPersonsWaiting = lista.get(i).getPersonalWaitingLine().size();
 					index = i;
 				}
-		
 			}	
 				//System.out.println("Entrando a SPList#" + index + " " + c);
 				lista.get(index).getPersonalWaitingLine().enqueue(c);	
-				
-			
 		}
 		
 		
