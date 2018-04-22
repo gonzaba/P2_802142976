@@ -124,14 +124,14 @@ public class Main {
 	 		writer2.println("MLMS 5: " + MLMS5.result());
 	 		 
 	 		
+	 		MLMSBLL MLMSBLL1 = new MLMSBLL(copyOf(listcust), 1);
+	 		writer2.println("MLMSBLL 1: " + MLMSBLL1.result());
+	 		
 	 		/**
 	 		 * 
 	 		 * Uncomment when implementation for MLMSBLL is completed.
 	 		 * 
-	 		 * MLMSBLL MLMSBLL1 = new MLMSBLL(copyOf(listcust), 1);
-	 		writer2.println("MLMSBLL 1: " + MLMSBLL1.result());
-	 		
-	 		MLMSBLL MLMSBLL3 = new MLMSBLL(copyOf(listcust), 3);
+	 		 * MLMSBLL MLMSBLL3 = new MLMSBLL(copyOf(listcust), 3);
 	 		writer2.println("MLMSBLL 3: " + MLMSBLL3.result());
 	 		
 	 		MLMSBLL MLMSBLL5 = new MLMSBLL(copyOf(listcust), 5);

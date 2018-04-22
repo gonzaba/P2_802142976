@@ -203,23 +203,6 @@ public class MLMS {
 		}
 	}
 	
-
-		
-	
-	private boolean allSPBusy(ArrayList<ServicePost> lista) {
-		
-		boolean areAvailable = true;
-		
-		for(int i=0; i<lista.size();i++) {
-			
-		if(!lista.get(i).isAvailable()) {
-			//System.out.print("here");
-			areAvailable = false;
-		}
-		
-		}
-		return areAvailable;
-	}
 	
 	/**
 	 * 
