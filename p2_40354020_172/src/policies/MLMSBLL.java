@@ -25,13 +25,22 @@ public class MLMSBLL {
 	
 	int averageWaitingTime = 0;
 	
+	//list of service post available for that particular set up of 1, 3 or 5 service posts.
 	ArrayList<ServicePost> listOfServicePost = new ArrayList<>();
 	
+	//Queue that will hold the list of customers that were served
 	ArrayQueue<Customer> terminatedJobs = new ArrayQueue<>();
 	
+	//sets finalResult originally all to 0 to create a new object of that type. 
+	//after the program finished running, the values of final Result will change.
 	Result finalResult = new Result(0,0,0);
 	
-	
+	/**
+	 * 
+	 * @param list of customers 
+	 * @param i is the number of service post for htat particular set up
+	 * (if its one server, 3 servers or 5 servers.
+	 */
 	public MLMSBLL(ArrayQueue<Customer> list, int i) {
 		this.listToCust = list;
 		this.numberOfServicePosts = i;
@@ -42,8 +51,8 @@ public class MLMSBLL {
 				//Creates and Initialize the amount of ServicePost wanted
 				//Adds the service post to my master list of service posts.
 				if(numberOfServicePosts==1) {
-					ServicePost servicePost1 = new ServicePost(); //aka cajero #1
-					listOfServicePost.add(servicePost1); //Anado cajero #1 a la lista de cajeros
+					ServicePost servicePost1 = new ServicePost(); //aka Cashier #1
+					listOfServicePost.add(servicePost1); //Add cashier to the list of cashiers/servers
 					ArrayQueue<Customer> listToProcess1 = new ArrayQueue<>();
 					servicePost1.setPersonalWaitingLine(listToProcess1);
 				}
@@ -98,61 +107,59 @@ public class MLMSBLL {
 				
 				while(!(listToCust.isEmpty()) || !allAvailable(listOfServicePost) || !allListToProcessAreEmpty(listOfServicePost) ) {
 								
-				decreaseTime(listOfServicePost);
-				
-				
-				/**
-				 * ---Service-Completed Event---
-				 * Verifies if the remaining time of the customer is equal to zero in
-				 * each service post 
-				 */
-			
-				for(int i=0; i<listOfServicePost.size(); i++) {
-					//Verifies first if the service post is occupied with someone
-					//it its available then it won't enter de condition about
-					//removing someone because it doesn't have a customer.
+					decreaseTime(listOfServicePost);
 					
-					if(!listOfServicePost.get(i).isAvailable()) {
-						//Looks for service time and checks if its equal to 0
-						//if its equal to 0 then it is removed from the service post.
-						if(listOfServicePost.get(i).getCustomer().getRemainingTime()==0) {
-							
-							Customer p = listOfServicePost.get(i).removeCustomer();
-							//sets the depature time to the current time in the system.
-							
-							p.setDepartureTime(time);
-							//System.out.println("Depature" + p);
-							//places the customers on the list of already serviced customers.
-							terminatedJobs.enqueue(p);
+					
+					/**
+					 * ---Service-Completed Event---
+					 * Verifies if the remaining time of the customer is equal to zero in
+					 * each service post 
+					 */
+				
+					for(int i=0; i<listOfServicePost.size(); i++) {
+						//Verifies first if the service post is occupied with someone
+						//it its available then it won't enter de condition about
+						//removing someone because it doesn't have a customer.
+						
+						if(!listOfServicePost.get(i).isAvailable()) {
+							//Looks for service time and checks if its equal to 0
+							//if its equal to 0 then it is removed from the service post.
+							if(listOfServicePost.get(i).getCustomer().getRemainingTime()==0) {
+								
+								Customer p = listOfServicePost.get(i).removeCustomer();
+								//sets the depature time to the current time in the system.
+								
+								p.setDepartureTime(time);
+								//System.out.println("Depature" + p);
+								//places the customers on the list of already serviced customers.
+								terminatedJobs.enqueue(p);
+						}
 					}
-				}
-				}	//end of for
-				
-				/**
-				 * Service-Starts Event
-				 */
-				
-				serviceStarts(time);
-
+					}	//end of for
 					
+					/**
+					 * Service-Starts Event
+					 */
+					
+					serviceStarts(time);
+	
+						
 					/**
 					 * Arrival Event
 					 * Checks when people arrive. If their arrival time is equal to the time currently in the system
 					 * they are added to the line of customers waiting to be served.
 					 */					
-						
 					while(!listToCust.isEmpty() && listToCust.first().getArrivalTime()==time) {	
-						Customer c = listToCust.dequeue();
-						//System.out.println("Entrando a ListToProcess= " + c);
-						
-						nextAvailable(listOfServicePost, c);
+							Customer c = listToCust.dequeue();
+							//System.out.println("Entrando a ListToProcess= " + c);		
+							nextAvailable(listOfServicePost, c);
 					}
-					
+						
 					serviceStarts(time);
 					time++;
-				System.out.println("Time = " +time);
-					
-					
+					System.out.println("Time = " +time);
+						
+						
 				}//end of while
 				
 				timeAllServicesCompleted = time;
@@ -161,13 +168,18 @@ public class MLMSBLL {
 				
 				calculateAverageTime(terminatedJobs,finalResult);
 							
-		
-		
 		return finalResult;
 		
 		
 	}//end of result
 
+	/**
+	 * 
+	 * @param lista is the list of service post to check the status of each service post 
+	 * and see if they are all available.
+	 * @return a boolean statement that will indicate if its true that
+	 * all service post are available.
+	 */
 	private boolean allAvailable(ArrayList<ServicePost> lista) {
 		
 		boolean areAvailable = true;
@@ -181,12 +193,15 @@ public class MLMSBLL {
 		}
 		return areAvailable;
 	}
-
+	
+	/**
+	 * 	Service Event. when one server is available, it will assign a new customer to the service post
+	 * to begin the service of it.
+	 * 
+	 * It also sets the waiting time the customer had to wait to receive its service.
+	 * @param time is the current time in the system.
+	 */
 	public void serviceStarts(int time) {
-		
-	//	System.out.println("All are empty"+ allListToProcessAreEmpty(listOfServicePost));
-		
-	//	System.out.println("All are busy " + allSPBusy(listOfServicePost));
 		
 		for(int i=0; i<listOfServicePost.size();i++) {
 			if(listOfServicePost.get(i).isAvailable() && !(listOfServicePost.get(i).getPersonalWaitingLine().size()==0)
@@ -198,7 +213,6 @@ public class MLMSBLL {
 		}
 	}
 	
-
 
 	/**
 	 * 
@@ -219,6 +233,14 @@ public class MLMSBLL {
 			}
 	}//end of decreseTime
 	
+	/**
+	 * Calculates the average time of waiting of each customer.
+	 * 
+	 * @param terminatedJobs is the list of all customers after they have been 
+	 * served.
+	 * @param r is the object that will hold all the results to be written on the output
+	 * file.
+	 */
 	public void calculateAverageTime(ArrayQueue<Customer> terminatedJobs, Result r) {
 		
 			//computing time
@@ -249,7 +271,12 @@ public class MLMSBLL {
 	}//end of calculateAverageTime
 	
 	
-	
+	/**
+	 * 
+	 * @param lista is the list of Service Post to check each individual line
+	 * each one has
+	 * @return whenever all lines of all the service post are empty or not.
+	 */
 	public boolean allListToProcessAreEmpty(ArrayList<ServicePost> lista) {
 		
 		boolean isTrue = true;
@@ -264,8 +291,11 @@ public class MLMSBLL {
 	}
 	
 	
-	/*
+	/**
+	 * 
 	 * Verifies which of the service post has the line with most minimum people in it.
+	 * @param lista is the list of Service Post
+	 * @param c is the customer to place on the list with less people on it.
 	 */
 	public void nextAvailable(ArrayList<ServicePost> lista, Customer c) {
 		
@@ -293,12 +323,9 @@ public class MLMSBLL {
 		
 			}	
 				//System.out.println("Entrando a SPList#" + index + " " + c);
-				lista.get(index).getPersonalWaitingLine().enqueue(c);	
-				
+			lista.get(index).getPersonalWaitingLine().enqueue(c);	
 			
 		}
-		
-		
 		
 		
 		
