@@ -94,10 +94,14 @@ public class MLMS {
 				
 				//set time
 				int time = listToCust.first().getArrivalTime();	
-		
 				
-				while(!(time==20) ) {
-					
+				
+				while(!(listToCust.isEmpty()) || !allAvailable(listOfServicePost) || !allListToProcessAreEmpty(listOfServicePost) ) {
+								
+				//System.out.println(allSPBusy(listOfServicePost));
+				
+				//System.out.println(allAvailable(listOfServicePost));
+				
 				
 				decreaseTime(listOfServicePost);
 				
@@ -151,10 +155,10 @@ public class MLMS {
 					
 					serviceStarts(time);
 					time++;
-				//	System.out.println(time);
+				System.out.println("Time = " +time);
 					
 					
-				}
+				}//end of while
 				
 				timeAllServicesCompleted = time;
 				
@@ -169,6 +173,20 @@ public class MLMS {
 		
 	}//end of result
 
+	private boolean allAvailable(ArrayList<ServicePost> lista) {
+		
+		boolean areAvailable = true;
+		
+		for(int i=0; i<lista.size();i++) {
+			
+		if(!lista.get(i).isAvailable()) {
+			areAvailable = false;
+		}
+		
+		}
+		return areAvailable;
+	}
+
 	public void serviceStarts(int time) {
 		
 	//	System.out.println("All are empty"+ allListToProcessAreEmpty(listOfServicePost));
@@ -179,6 +197,7 @@ public class MLMS {
 			if(listOfServicePost.get(i).isAvailable() && !(listOfServicePost.get(i).getPersonalWaitingLine().size()==0)
 					&& !(allListToProcessAreEmpty(listOfServicePost))) {
 				listOfServicePost.get(i).setCustomer(listOfServicePost.get(i).getPersonalWaitingLine().dequeue());
+				listOfServicePost.get(i).getCustomer().setWaitingTime(time-listOfServicePost.get(i).getCustomer().getArrivalTime());
 				System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
 			}
 		}
@@ -186,9 +205,6 @@ public class MLMS {
 	
 
 		
-		
-
-
 	
 	private boolean allSPBusy(ArrayList<ServicePost> lista) {
 		
@@ -236,20 +252,21 @@ public class MLMS {
 			while(!(terminatedJobs.isEmpty())) {
 				
 				valor2 = terminatedJobs.first().getWaitingTIme();
-				
+				System.out.println(valor2);
 				totalTime= valor2 + totalTime;
 				
 				//System.out.println("totalTime = "  +totalTime);
 				terminatedJobs.dequeue();
 			}
 			
-			//System.out.println(totalTime/5);
+			System.out.println(totalTime/5);
 			totalTime= totalTime/ (float)count;
 			
 			r.setAverageWaitingTime(totalTime);
 			
 			//System.out.print("Averange Time in System is: ");
-			//System.out.print(totalTime);
+			System.out.print("Total time"+ 
+			totalTime);
 			
 	}//end of calculateAverageTime
 	
@@ -298,6 +315,7 @@ public class MLMS {
 				
 			
 		}
+		
 		
 		
 		

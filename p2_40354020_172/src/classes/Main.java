@@ -118,16 +118,10 @@ public class Main {
 	 		
 	 		MLMS MLMS3 = new MLMS(copyOf(listcust), 3);
 	 		writer2.println("MLMS 3: " + MLMS3.result());
-	 		/**
-	 		 * 
-	 		 * Uncomment when implementation for MLMS is completed
-	 		 * 
-	 		 * MLMS MLMS3 = new MLMS(copyOf(listcust), 3);
-	 		writer2.println("MLMS 3: " + MLMS3.result());
 	 		
 	 		MLMS MLMS5 = new MLMS(copyOf(listcust), 5);
 	 		writer2.println("MLMS 5: " + MLMS5.result());
-	 		 */
+	 		 
 	 		
 	 		/**
 	 		 * 
