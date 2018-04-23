@@ -194,6 +194,7 @@ public class MLMSBLL {
 		return areAvailable;
 	}
 	
+	
 	/**
 	 * 	Service Event. when one server is available, it will assign a new customer to the service post
 	 * to begin the service of it.
@@ -327,8 +328,59 @@ public class MLMSBLL {
 			
 		}
 		
+	}//end of next available
+	
+	
+	public void transfer(ArrayList<ServicePost> lista) {
 		
 		
+		//System.out.println(lista.size());
+		int minNumberOfPersonsWaiting, maxNumberOfPersonsWaiting;
+		
+		if(lista.size()==1) {
+			//System.out.println("Entrando a SP#0" + c);
+		}
+		else {
+			
+			minNumberOfPersonsWaiting = lista.get(0).getPersonalWaitingLine().size();
+			maxNumberOfPersonsWaiting = lista.get(0).getPersonalWaitingLine().size();
+			
+			int index, index2;
+			
+			for(int i=1;i<lista.size();i++) {
+				
+				//System.out.println(	minNumberOfPersonsWaiting + "vs " + lista.get(i).getPersonalWaitingLine().size());
+				if(lista.get(i).getPersonalWaitingLine().size()>= maxNumberOfPersonsWaiting) {
+					
+					if(lista.get(i).getPersonalWaitingLine().size()== maxNumberOfPersonsWaiting) {
+						lista.get(i).getPersonalWaitingLine();
+					}
+					else {
+						maxNumberOfPersonsWaiting = lista.get(i).getPersonalWaitingLine().size();
+						index2 = i;
+					}
+					
+				}
+				
+				if(lista.get(i).getPersonalWaitingLine().size() < minNumberOfPersonsWaiting) {
+					minNumberOfPersonsWaiting = lista.get(i).getPersonalWaitingLine().size();
+					index = i;
+				}
+				
+				
+		
+			}	
+				//System.out.println("Entrando a SPList#" + index + " " + c);
+			//lista.get(index).getPersonalWaitingLine().enqueue(c);	
+			
+		}
+		
+		
+		
+		
+	}
+	
+	public void mCounter(ArrayList<Customer> lista) {
 		
 	}
 		
