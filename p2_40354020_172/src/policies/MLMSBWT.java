@@ -1,7 +1,5 @@
 package policies;
 
-import classes.ArrayQueue;
-import objects.Customer;
 
 /**
  * @author Barbara P. Gonzalez Rivera - 802-14-2976
@@ -9,17 +7,20 @@ import objects.Customer;
  * ICOM4035 - 030
  */
 
-// Multiple Lines Multiple Servers and Balanced Waiting Times
+//Multiple Lines Multiple Servers
 
-public class MLMSBWT {
-
-	public MLMSBWT(ArrayQueue<Customer> readFileData) {
-		// TODO Auto-generated constructor stub
-	}
-
-	public void result() {
-		// TODO Auto-generated method stub
+public class MLMSBWT{
+		
+		
 		
 	}
+		
 
-}
+
+
+	
+	
+	
+	
+
+

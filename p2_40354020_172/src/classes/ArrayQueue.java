@@ -54,8 +54,9 @@ public class ArrayQueue<E> implements Queue<E> {
 	}
 	@Override
 	public void enqueue(E element) {
-		if (size==elements.length)
+		if (size==elements.length) {
 			changeCapacity(2*size);
+		}
 		elements[(first+size)%elements.length]=element;
 		size++;
 			

@@ -126,8 +126,9 @@ public class MLMS {
 							//sets the depature time to the current time in the system.
 							
 							p.setDepartureTime(time);
-							//System.out.println("Depature" + p);
+						//	System.out.println("Depature" + p);
 							//places the customers on the list of already serviced customers.
+						
 							terminatedJobs.enqueue(p);
 					}
 				}
@@ -160,7 +161,7 @@ public class MLMS {
 				}//end of while
 				
 				timeAllServicesCompleted = time;
-				finalResult.setTimeServicesCompleted(timeAllServicesCompleted);
+				finalResult.setTimeServicesCompleted(timeAllServicesCompleted-1);
 				calculateAverageTime(terminatedJobs,finalResult);
 							
 		
@@ -195,7 +196,7 @@ public class MLMS {
 					&& !(allListToProcessAreEmpty(listOfServicePost))) {
 				listOfServicePost.get(i).setCustomer(listOfServicePost.get(i).getPersonalWaitingLine().dequeue());
 				listOfServicePost.get(i).getCustomer().setWaitingTime(time-listOfServicePost.get(i).getCustomer().getArrivalTime());
-			//	System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
+		//	System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
 			}
 		}
 	}
@@ -215,7 +216,7 @@ public class MLMS {
 					
 				lista.get(i).getCustomer().decreaseRemainingTime();
 				
-			//	System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
+		//		System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
 				}
 			}
 	}//end of decreseTime
@@ -277,17 +278,26 @@ public class MLMS {
 			
 			
 			minNumberOfPersonsWaiting = lista.get(0).getPersonalWaitingLine().size();
+			
+			if(!lista.get(0).isAvailable()) {
+				minNumberOfPersonsWaiting = minNumberOfPersonsWaiting +1;
+			}
+			
 			int index = 0;
 			for(int i=1;i<lista.size();i++) {
 				//System.out.println(	minNumberOfPersonsWaiting + "vs " + lista.get(i).getPersonalWaitingLine().size());
-				if(lista.get(i).getPersonalWaitingLine().size() < minNumberOfPersonsWaiting) {
-					minNumberOfPersonsWaiting = lista.get(i).getPersonalWaitingLine().size();
+				int comparadar = lista.get(i).getPersonalWaitingLine().size();
+				if(!lista.get(i).isAvailable()) {
+					comparadar = comparadar +1;
+				}
+				if(comparadar < minNumberOfPersonsWaiting) {
+					minNumberOfPersonsWaiting = comparadar;
 					index = i;
 				}
 			}	
-				//System.out.println("Entrando a SPList#" + index + " " + c);
+			//	System.out.println("Entrando a SPList#" + index + " " + c);
 				lista.get(index).getPersonalWaitingLine().enqueue(c);	
-		}
+		}//end of else
 		
 		
 		

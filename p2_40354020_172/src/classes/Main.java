@@ -202,14 +202,14 @@ public class Main {
 	   
 	        try {
 
-	        	sc = new Scanner(file).useDelimiter("\\s");
+	        	sc = new Scanner(file).useDelimiter("\\s+");
 	        	
 	        	//Checks to see if file is int format if not then throw message
 	        	if(!sc.hasNextInt()) {
 	        		fileCreatorExceptions(2, fileName);
 	        	}
 	        	else {
-	        		 while (sc.hasNext()) {
+	        		 while (sc.hasNextInt()) {
 	 	            	
 	 	            	int ar = sc.nextInt();
 	 	           		int st = sc.nextInt();
