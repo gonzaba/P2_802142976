@@ -11,7 +11,7 @@ import interfaces.Queue;
 public class ArrayQueue<E> implements Queue<E> {
 	private final static int INITCAP = 4; 
 	private E[] elements; 
-	private int first, size; 
+	private int first, size, last; 
 	public ArrayQueue() { 
 		elements = (E[]) new Object[INITCAP]; 
 		first = 0; 
@@ -42,6 +42,25 @@ public class ArrayQueue<E> implements Queue<E> {
 		return etr;
 		
 	}
+	
+	public E deque() {
+		if(isEmpty()) {
+			return null;
+		}
+		E etr = elements[last];
+		elements[last]=null;
+		size--;
+		return etr;
+	}
+	
+	public E peakAtLast() {
+		if(isEmpty()) {
+			return null;
+		}
+		E etr = elements[last];
+		return etr;
+	}
+	
 	private void changeCapacity(int newCapacity) {
 		E[] temp=(E[]) new Object[newCapacity];
 		for (int i=0; i<size;i++) {
@@ -57,6 +76,7 @@ public class ArrayQueue<E> implements Queue<E> {
 		if (size==elements.length) {
 			changeCapacity(2*size);
 		}
+		last = (first+size)%elements.length;
 		elements[(first+size)%elements.length]=element;
 		size++;
 			

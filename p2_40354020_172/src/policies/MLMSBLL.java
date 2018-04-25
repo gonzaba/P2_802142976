@@ -126,13 +126,21 @@ public class MLMSBLL {
 							//sets the depature time to the current time in the system.
 							
 							p.setDepartureTime(time);
-						//	System.out.println("Depature" + p);
+						System.out.println("Depature" + p);
 							//places the customers on the list of already serviced customers.
 						
 							terminatedJobs.enqueue(p);
 					}
 				}
 				}	//end of for
+				
+				/**
+				 * Transfer Event
+				 */
+				
+				if(!(listOfServicePost.size()==1)) {
+					transfer(listOfServicePost);
+				}
 				
 				/**
 				 * Service-Starts Event
@@ -148,14 +156,14 @@ public class MLMSBLL {
 						
 					while(!listToCust.isEmpty() && listToCust.first().getArrivalTime()==time) {	
 						Customer c = listToCust.dequeue();
-						//System.out.println("Entrando a ListToProcess= " + c);
+						System.out.println("Entrando a ListToProcess= " + c);
 						
 						nextAvailable(listOfServicePost, c);
 					}
 					
 					serviceStarts(time);
 					time++;
-				//System.out.println("Time = " +time);
+				System.out.println("Time = " +time);
 					
 					
 				}//end of while
@@ -196,7 +204,7 @@ public class MLMSBLL {
 					&& !(allListToProcessAreEmpty(listOfServicePost))) {
 				listOfServicePost.get(i).setCustomer(listOfServicePost.get(i).getPersonalWaitingLine().dequeue());
 				listOfServicePost.get(i).getCustomer().setWaitingTime(time-listOfServicePost.get(i).getCustomer().getArrivalTime());
-		//	System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
+		System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
 			}
 		}
 	}
@@ -216,7 +224,7 @@ public class MLMSBLL {
 					
 				lista.get(i).getCustomer().decreaseRemainingTime();
 				
-		//		System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
+			System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
 				}
 			}
 	}//end of decreseTime
@@ -290,65 +298,72 @@ public class MLMSBLL {
 				}
 				if(comparadar < minNumberOfPersonsWaiting) {
 					minNumberOfPersonsWaiting = comparadar;
-					index = i;
+					index = i; 
 				}
 			}	
-			//	System.out.println("Entrando a SPList#" + index + " " + c);
+			System.out.println("Entrando a SPList#" + index + " " + c);
 				lista.get(index).getPersonalWaitingLine().enqueue(c);	
 		}//end of else
 				
 	}//end of next Available
 	
+		
+
+public void transfer(ArrayList<ServicePost> lista) {
+
+	//the one with the priority to change lines
+	//is the one with the lower ID number
+	int lowestIDNumber = 0;
+	
+	int compare =0;
+	int index = 0;
 	
 	
-public Customer peakAtLast(ArrayQueue<Customer> OriginalList) {
+	int j= 0;
 	
-	ArrayQueue<String> list2 = new ArrayQueue<>();
-	Customer n = new Customer();
 	
-	if(OriginalList.size()==1) {
-		return OriginalList.first();
+	while(j<lista.size()) {	
+		if(lista.get(j).getPersonalWaitingLine().size()==0) {
+			j++;
+			//System.out.println(j);
+		}
+		else {
+			break;
+		}
+	}
+	
+	if(j==lista.size()) {
+		//do nothing basically pq todos estan vacia
 	}
 	else {
-		int sizeOfOriginalList = OriginalList.size();
-		int i=0;
-		ArrayQueue<Customer> temp = new ArrayQueue<>();
 		
-		while(!(i==sizeOfOriginalList-1)) {
-			temp.enqueue(OriginalList.dequeue());
-			i++;
-	}
+		lowestIDNumber = lista.get(j).getPersonalWaitingLine().peakAtLast().getId();
 		
-		n = OriginalList.dequeue();
+		for(int i=j+1; i<lista.size();i++) {
 		
-		while(!temp.isEmpty()) {
-			OriginalList.enqueue(temp.dequeue());
+		if(lista.get(i).getPersonalWaitingLine().size()==0) {
+			break;
 		}
-		OriginalList.enqueue(n);
+			
+		compare=	lista.get(i).getPersonalWaitingLine().peakAtLast().getId();
+		
+		if(compare<lowestIDNumber) {
+			lowestIDNumber = lista.get(i).getPersonalWaitingLine().peakAtLast().getId();
+			index = i;
+		}
+		
+	}//end of for
+	
+		Customer clientToChange = new Customer();
+		clientToChange = lista.get(index).getPersonalWaitingLine().deque();
+		
+		nextAvailable(lista,clientToChange);
 	}
 	
-	return n;
-}
 
+	
+}//end of tranfer
 
-public void transfer(ArrayList<ServicePost> list) {
-	
-	Customer clientToChange = new Customer();
-	
-	
-	
-	nextAvailable(list,clientToChange);
-	
-}
-
-
-
-public Customer getLast(ArrayQueue<Customer> OriginalList) {
-	
-	return null;
-}
-	
-	
 
 
 	
