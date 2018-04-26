@@ -123,8 +123,8 @@ public class Main {
 	 	//	MLMSBLL MLMSBLL1 = new MLMSBLL(copyOf(listcust), 1);
 	 	//	writer2.println("MLMSBLL 1: " + MLMSBLL1.result());
 	 		
-	 		MLMSBLL MLMSBLL3 = new MLMSBLL(copyOf(listcust), 3);
-	 		writer2.println("MLMSBLL 3: " + MLMSBLL3.result());
+	 	//	MLMSBLL MLMSBLL3 = new MLMSBLL(copyOf(listcust), 3);
+	 		//writer2.println("MLMSBLL 3: " + MLMSBLL3.result());
 	 		
 	 	//	MLMSBLL MLMSBLL5 = new MLMSBLL(copyOf(listcust), 5);
 	 	//	writer2.println("MLMSBLL 5: " + MLMSBLL5.result());
@@ -305,6 +305,7 @@ public class Main {
 			copyC.setId(c.getId());
 			copyC.setRemainingTime(c.getRemainingTime());
 			copyC.setServiceTime(c.getServiceTime());
+			copyC.setM(0);
 			
 			listcust.enqueue(c);
 			

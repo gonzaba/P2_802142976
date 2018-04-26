@@ -15,6 +15,7 @@ public class Customer {
 			private int remainingTime;
 			private int departureTime;
 			private int waitingTime;
+			private int m;
 			
 			
 		//Setters	
@@ -66,6 +67,10 @@ public class Customer {
 			waitingTime = t;
 		}
 		
+		public void setM(int n) {
+			this.m = n;
+		}
+		
 		//Getters
 		
 		public int getId() {
@@ -92,6 +97,10 @@ public class Customer {
 			return waitingTime;
 		}
 		
+		public int getM() {
+			return m;
+		}
+		
 		/**
 		 * decreases the remaining time by one number
 		 */
@@ -100,7 +109,11 @@ public class Customer {
 		}
 		
 		 public String toString() { 
-			 return "ID = " + id + "  Arrival Time = " + arrivalTime + "  Remaining Time = " + remainingTime + "  Departure Time = " + departureTime + " Waiting Time= " + waitingTime; 				
+			 return "ID = " + id + "  Arrival Time = " + arrivalTime + "  Remaining Time = " + remainingTime + "  Departure Time = " + departureTime + " Waiting Time= " + waitingTime + " M="+m; 				
+		 }
+		 
+		 public void increaseM() {
+			 m++;
 		 }
 		
 	}//end of Customer class

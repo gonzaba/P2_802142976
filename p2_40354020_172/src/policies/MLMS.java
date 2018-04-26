@@ -156,7 +156,7 @@ public class MLMS {
 					
 					serviceStarts(time);
 					time++;
-				//System.out.println("Time = " +time);
+				System.out.println("Time = " +time);
 					
 					
 				}//end of while
@@ -195,7 +195,10 @@ public class MLMS {
 		for(int i=0; i<listOfServicePost.size();i++) {
 			if(listOfServicePost.get(i).isAvailable() && !(listOfServicePost.get(i).getPersonalWaitingLine().size()==0)
 					&& !(allListToProcessAreEmpty(listOfServicePost))) {
-				listOfServicePost.get(i).setCustomer(listOfServicePost.get(i).getPersonalWaitingLine().dequeue());
+				Customer h = new Customer();
+				h = listOfServicePost.get(i).getPersonalWaitingLine().dequeue();
+				checkM(h,listOfServicePost);
+				listOfServicePost.get(i).setCustomer(h);
 				listOfServicePost.get(i).getCustomer().setWaitingTime(time-listOfServicePost.get(i).getCustomer().getArrivalTime());
 				
 				
@@ -224,19 +227,25 @@ public class MLMS {
 			}
 	}//end of decreseTime
 	
+	
 	public void calculateAverageTime(ArrayQueue<Customer> terminatedJobs, Result r) {
 		
 			//computing time
 			float totalTime = 0;
 			float valor2 = 0;	
+			float m1 =0;
+			float totalTimeM =0;
+			
 			int count = terminatedJobs.size();
 		
 			//System.out.println("list Size: " +count);
 			
 			while(!(terminatedJobs.isEmpty())) {
 				
+				m1 = terminatedJobs.first().getM();
 				valor2 = terminatedJobs.first().getWaitingTIme();
 				//System.out.println(valor2);
+				totalTimeM = m1 + totalTimeM;
 				totalTime= valor2 + totalTime;
 				
 				//System.out.println("totalTime = "  +totalTime);
@@ -245,6 +254,10 @@ public class MLMS {
 			
 			//System.out.println(totalTime/5);
 			totalTime= totalTime/ (float)count;
+			
+			totalTimeM = totalTimeM/ (float) count;
+			
+			r.setAverageNumOfCust(totalTimeM);
 			
 			r.setAverageWaitingTime(totalTime);
 			
@@ -301,6 +314,56 @@ public class MLMS {
 			//	System.out.println("Entrando a SPList#" + index + " " + c);
 				lista.get(index).getPersonalWaitingLine().enqueue(c);	
 		}//end of else
+	}
+	
+	public void checkM(Customer customer, ArrayList<ServicePost> lista) {
+		
+		int id = 	customer.getId();
+		
+		for(int i=0; i<lista.size();i++) {
+			if(lista.get(i).getPersonalWaitingLine().size()==0) {
+				//do nothing
+			}
+			else {
+				ArrayList<Customer> temp =  fromArrayQueueToArrayList(lista.get(i).getPersonalWaitingLine());
+				
+				for(int j =0; j<temp.size();j++) {
+					
+					if(id > temp.get(j).getId()) {
+						temp.get(j).increaseM();
+					}
+				}
+			}
+		
+		}
+		
+		
+	}//end of CheckM
+	
+	public ArrayList<Customer> fromArrayQueueToArrayList(ArrayQueue<Customer> list){
+		
+		ArrayQueue<Customer> temp1 = new ArrayQueue<>();
+		Customer np = new Customer();
+		
+		ArrayList<Customer> temp = new ArrayList<>();
+		
+	while(!list.isEmpty()) {
+		np = list.dequeue();
+		//System.out.println(np);
+		temp1.enqueue(np);
+		temp.add(np);
+	}
+	
+	
+	while(!temp1.isEmpty()) {
+		list.enqueue(temp1.dequeue());
+	}
+	
+		return temp;
+		
+		
+		
+		
 	}
 	
 		
