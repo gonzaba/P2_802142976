@@ -120,7 +120,7 @@ public class Main {
 	 		MLMS MLMS5 = new MLMS(copyOf(listcust), 5);
 	 		writer2.println("MLMS 5: " + MLMS5.result());
 	 		
-	 		//MLMSBLL MLMSBLL1 = new MLMSBLL(copyOf(listcust), 1);
+	 	//	MLMSBLL MLMSBLL1 = new MLMSBLL(copyOf(listcust), 1);
 	 	//	writer2.println("MLMSBLL 1: " + MLMSBLL1.result());
 	 		
 	 		MLMSBLL MLMSBLL3 = new MLMSBLL(copyOf(listcust), 3);

@@ -309,6 +309,7 @@ public class MLMSBLL {
 	
 		
 
+
 public void transfer(ArrayList<ServicePost> lista) {
 
 	//the one with the priority to change lines
@@ -316,25 +317,32 @@ public void transfer(ArrayList<ServicePost> lista) {
 	int lowestIDNumber = 0;
 	
 	int compare =0;
+	
+	//which service Post is located that customer with the lowest ID
 	int index = 0;
 	
 	
 	int j= 0;
 	
-	
+	//busca la primera lista no vacia para comparar
 	while(j<lista.size()) {	
 		if(lista.get(j).getPersonalWaitingLine().size()==0) {
 			j++;
 			//System.out.println(j);
 		}
 		else {
+			//if it found the first list that is not empty it will take that J pass it to the
+			//next step
 			break;
 		}
 	}
 	
 	if(j==lista.size()) {
-		//do nothing basically pq todos estan vacia
-	}
+		//if J is equal to the size of service post list it means that
+		//it went through every service post and all are empty
+		//therefore none will be transfered.
+		}
+	
 	else {
 		
 		lowestIDNumber = lista.get(j).getPersonalWaitingLine().peakAtLast().getId();
@@ -345,8 +353,9 @@ public void transfer(ArrayList<ServicePost> lista) {
 			break;
 		}
 			
-		compare=	lista.get(i).getPersonalWaitingLine().peakAtLast().getId();
+		compare =	lista.get(i).getPersonalWaitingLine().peakAtLast().getId();
 		
+		//compares the last person of each line to check who has priority to change to a new list/
 		if(compare<lowestIDNumber) {
 			lowestIDNumber = lista.get(i).getPersonalWaitingLine().peakAtLast().getId();
 			index = i;
@@ -355,19 +364,22 @@ public void transfer(ArrayList<ServicePost> lista) {
 	}//end of for
 	
 		Customer clientToChange = new Customer();
+		//extract the person to change from one lsit to another.
 		clientToChange = lista.get(index).getPersonalWaitingLine().deque();
 		
+		//put the customer on the next available place that the line is short.
+		
+		// NOTE: this nextAvailable method must be modified in order to 
+		//cumplir con los requerimientos del projecto que el profesor cambio ayer en la noche.
+		
 		nextAvailable(lista,clientToChange);
-	}
+	}//end of else
 	
-
-	
-}//end of tranfer
+}//end of transfer
 
 
 
-	
-	
+
 	
 	
 

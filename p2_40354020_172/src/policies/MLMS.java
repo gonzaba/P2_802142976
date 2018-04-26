@@ -25,6 +25,7 @@ public class MLMS {
 	
 	int averageWaitingTime = 0;
 	
+	
 	ArrayList<ServicePost> listOfServicePost = new ArrayList<>();
 	
 	ArrayQueue<Customer> terminatedJobs = new ArrayQueue<>();
@@ -196,6 +197,8 @@ public class MLMS {
 					&& !(allListToProcessAreEmpty(listOfServicePost))) {
 				listOfServicePost.get(i).setCustomer(listOfServicePost.get(i).getPersonalWaitingLine().dequeue());
 				listOfServicePost.get(i).getCustomer().setWaitingTime(time-listOfServicePost.get(i).getCustomer().getArrivalTime());
+				
+				
 		//	System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
 			}
 		}
@@ -298,13 +301,8 @@ public class MLMS {
 			//	System.out.println("Entrando a SPList#" + index + " " + c);
 				lista.get(index).getPersonalWaitingLine().enqueue(c);	
 		}//end of else
-		
-		
-		
-		
-		
-		
 	}
+	
 		
 
 
