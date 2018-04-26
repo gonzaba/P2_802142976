@@ -341,7 +341,7 @@ public void transfer(ArrayList<ServicePost> lista) {
 		//if J is equal to the size of service post list it means that
 		//it went through every service post and all are empty
 		//therefore none will be transfered.
-		}
+		}//
 	
 	else {
 		
