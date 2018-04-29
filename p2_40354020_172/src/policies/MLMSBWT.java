@@ -265,7 +265,7 @@ public class MLMSBWT {
 					ind = i;
 				}
 			}
-			System.out.println("Entering to SPList#" + ind + " " + q);
+			//System.out.println("Entering to SPList#" + ind + " " + q);
 			list.get(ind).getPersonalWaitingLine().add(q);
 			
 			
@@ -390,7 +390,7 @@ public class MLMSBWT {
 			//Will only execute this method is the service post is serving someone.
 			if(!(list.get(i).isAvailable())) {
 				list.get(i).getCustomer().decreaseRemainingTime();
-				System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
+				//System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
 			}
 			
 		}

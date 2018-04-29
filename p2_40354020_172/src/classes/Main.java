@@ -87,7 +87,7 @@ public class Main {
 		   
 		 
 	    
-//while(!listOfFiles.isEmpty()) {
+while(!listOfFiles.isEmpty()) {
 	    	
 	    String f = listOfFiles.first();
 	    
@@ -147,7 +147,7 @@ public class Main {
 	    }
 	   
 		
-//}//end of while
+}//end of while
 	    
 	
 		  
