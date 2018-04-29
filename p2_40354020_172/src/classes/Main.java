@@ -122,8 +122,7 @@ while(!listOfFiles.isEmpty()) {
 	 		
 	 	//	System.out.println(f);
 	 		MLMSBLL MLMSBLL1 = new MLMSBLL(copyOf(listcust), 1);
-	 		writer2.println("MLMSBLL 1: " + MLMSBLL1.result());
-	 	
+	 		writer2.println("MLMSBLL 1: " + MLMSBLL1.result());	
 	 	
 	 		MLMSBLL MLMSBLL3 = new MLMSBLL(copyOf(listcust), 3);
 	 		writer2.println("MLMSBLL 3: " + MLMSBLL3.result());
@@ -137,8 +136,8 @@ while(!listOfFiles.isEmpty()) {
 	 		MLMSBWT MLMSBWT3 = new MLMSBWT(copyOf(listcust),3);
 	 		writer2.println("MLMSBWT 3: " + MLMSBWT3.result());
 	 		
-	 	MLMSBWT MLMSBWT5 = new MLMSBWT(copyOf(listcust),5);
-	 	writer2.println("MLMSBWT 5: " + MLMSBWT5.result());
+	 		MLMSBWT MLMSBWT5 = new MLMSBWT(copyOf(listcust),5);
+	 		writer2.println("MLMSBWT 5: " + MLMSBWT5.result());
 	 		
 						
 			writer2.close();

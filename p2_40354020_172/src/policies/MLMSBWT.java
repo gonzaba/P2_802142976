@@ -180,7 +180,7 @@ public class MLMSBWT {
 			serviceStarts(time);
 			
 			time++;
-	System.out.println("Time= " +time );
+//	System.out.println("Time= " +time );
 		
 		}//end of while
 		
@@ -260,6 +260,7 @@ public class MLMSBWT {
 			}
 			
 			int compare = 0;
+	//		System.out.println(list.size());
 			for(int e = 1; e<list.size(); e++) {
 				
 				if(!list.get(e).getPersonalWaitingLine().isEmpty()) {
@@ -310,7 +311,7 @@ public class MLMSBWT {
 				listOfServicePost.get(i).setCustomer(h);
 				listOfServicePost.get(i).getCustomer().setWaitingTime(time-listOfServicePost.get(i).getCustomer().getArrivalTime());
 				
-			System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
+		//	System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
 						
 					
 			}
