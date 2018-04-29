@@ -245,7 +245,30 @@ public class MLMSBWT {
 			list.get(0).getPersonalWaitingLine().add(q);
 		}
 		else if(allListToProcessAreEmpty(list)){
-			list.get(0).getPersonalWaitingLine().add(q);
+			
+			int minNumberOfPersonsWaiting = 0;
+			
+			if(!list.get(0).isAvailable()) {
+				minNumberOfPersonsWaiting = list.get(0).getCustomer().getRemainingTime() ;
+			}
+			
+			int ind = 0;
+			
+			for(int i=1;i<list.size();i++) {
+				
+				int comparator = 0;
+					if(!list.get(i).isAvailable()) {
+						comparator = list.get(i).getCustomer().getRemainingTime();
+					}
+				if(comparator< minNumberOfPersonsWaiting) {
+					minNumberOfPersonsWaiting = comparator;
+					ind = i;
+				}
+			}
+			System.out.println("Entering to SPList#" + ind + " " + q);
+			list.get(ind).getPersonalWaitingLine().add(q);
+			
+			
 		}
 		else {			
 			int index=0;
@@ -367,7 +390,7 @@ public class MLMSBWT {
 			//Will only execute this method is the service post is serving someone.
 			if(!(list.get(i).isAvailable())) {
 				list.get(i).getCustomer().decreaseRemainingTime();
-		//		System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
+				System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
 			}
 			
 		}

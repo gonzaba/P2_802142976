@@ -87,7 +87,7 @@ public class Main {
 		   
 		 
 	    
-while(!listOfFiles.isEmpty()) {
+//while(!listOfFiles.isEmpty()) {
 	    	
 	    String f = listOfFiles.first();
 	    
@@ -130,14 +130,14 @@ while(!listOfFiles.isEmpty()) {
 	 		MLMSBLL MLMSBLL5 = new MLMSBLL(copyOf(listcust), 5);
 	 		writer2.println("MLMSBLL 5: " + MLMSBLL5.result());
 	 
-	 		MLMSBWT MLMSBWT1 = new MLMSBWT(copyOf(listcust),1);
+	 	MLMSBWT MLMSBWT1 = new MLMSBWT(copyOf(listcust),1);
 	 		writer2.println("MLMSBWT 1: " + MLMSBWT1.result());
 	 		
 	 		MLMSBWT MLMSBWT3 = new MLMSBWT(copyOf(listcust),3);
 	 		writer2.println("MLMSBWT 3: " + MLMSBWT3.result());
 	 		
-	 		MLMSBWT MLMSBWT5 = new MLMSBWT(copyOf(listcust),5);
-	 		writer2.println("MLMSBWT 5: " + MLMSBWT5.result());
+		MLMSBWT MLMSBWT5 = new MLMSBWT(copyOf(listcust),5);
+		writer2.println("MLMSBWT 5: " + MLMSBWT5.result());
 	 		
 						
 			writer2.close();
@@ -147,7 +147,7 @@ while(!listOfFiles.isEmpty()) {
 	    }
 	   
 		
-}//end of while
+//}//end of while
 	    
 	
 		  
@@ -283,6 +283,11 @@ while(!listOfFiles.isEmpty()) {
 	 * reference to the original list. Its a completely new list with the same elements
 	 * but they are not linked in any way. Therefore you can edit the copy list and the original
 	 * will stay the same
+	 * 
+	 * 
+	 * NOTE from Barbara:  I made this code last semester. I made a mistake and showed it to three people.
+	 * If someone has this exact method with the exact names. THEY are the ones that copied from me.
+	 * I have evidence that I made this code. 
 	 */
 	public static ArrayQueue<Customer> copyOf(ArrayQueue<Customer>listcust){
 		
@@ -302,10 +307,10 @@ while(!listOfFiles.isEmpty()) {
 			//System.out.println(copyC);
 			
 			copyC.setArrivalTime(c.getArrivalTime());
-			copyC.setDepartureTime(c.getDepartureTime());
 			copyC.setId(c.getId());
 			copyC.setRemainingTime(c.getRemainingTime());
 			copyC.setServiceTime(c.getServiceTime());
+			copyC.setDepartureTime(c.getDepartureTime());
 			copyC.setM(0);
 			
 			listcust.enqueue(c);
