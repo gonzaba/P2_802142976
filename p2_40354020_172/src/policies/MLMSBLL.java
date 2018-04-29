@@ -148,7 +148,7 @@ public class MLMSBLL {
 						//sets the departure time to the current time in the system.
 						
 						p.setDepartureTime(time);
-						System.out.println("Departure" + p);
+					//	System.out.println("Departure" + p);
 						
 						//places the customers on the list of already serviced customers.
 						terminatedJobs.enqueue(p);
@@ -189,7 +189,7 @@ public class MLMSBLL {
 			serviceStarts(time);
 			
 			time++;
-		System.out.println("Time= " +time );
+	System.out.println("Time= " +time );
 		
 		}//end of while
 		
@@ -227,15 +227,18 @@ public class MLMSBLL {
 		//looks for the first list that is not empty to compare
 		while(j<list.size()) {
 			if(list.get(j).getPersonalWaitingLine().size()==0) {
+			System.out.println("List" + j + "size="+ list.get(j).getPersonalWaitingLine().size());	
 				j++;
 			}
 			else {
 				//if it found the first list that is not empty it will take that J pass it to the
 				//next step
+				System.out.println("List" + j + "size="+ list.get(j).getPersonalWaitingLine().size());	
+				index= j;
 				break;
 			}
 		}
-		
+		System.out.println("j=" + j);
 		if(j==list.size()) {
 			//if J is equal to the size of service post list it means that
 			//it went through every service post and all are empty
@@ -258,20 +261,23 @@ public class MLMSBLL {
 					}	
 				}
 			
+				Customer clientToChange = new Customer();
+				
+					System.out.println(list.get(index).getPersonalWaitingLine().size());
+					
+					clientToChange = list.get(index).getPersonalWaitingLine().remove(list.get(index).getPersonalWaitingLine().size()-1);
+					
+					if(index==0) {
+						System.out.println("here");
+						nextAvailable(list,clientToChange);
+					}
+					else {
+						System.out.println("Not here");
+						nextAvailable2(list,clientToChange, index);
+					}
 		}//end of else
 		
-		Customer clientToChange = new Customer();
-		
-		System.out.println(list.get(index).getPersonalWaitingLine().size());
-		
-		clientToChange = list.get(index).getPersonalWaitingLine().remove(list.get(index).getPersonalWaitingLine().size()-1);
-		
-		if(index==0) {
-			nextAvailable(list,clientToChange);
-		}
-		else {
-			nextAvailable2(list,clientToChange, index);
-		}
+	
 	}//end of transfer
 	
 	
@@ -282,7 +288,7 @@ public class MLMSBLL {
 	int index1 = 0;
 	int comp2;
 	int min2;
-	int index2 = 0;
+	int index2 = index;
 	
 		if(list.size()==1) {
 			list.get(0).getPersonalWaitingLine().add(c);
@@ -296,7 +302,7 @@ public class MLMSBLL {
 			min1= min1 +1;
 		}
 		
-		for(int i=0;i<index;i++) {
+		for(int i=1;i<index;i++) {
 			comp1 = list.get(i).getPersonalWaitingLine().size();
 			if(!list.get(i).isAvailable()) {
 				comp1= comp1 +1;
@@ -333,15 +339,15 @@ public class MLMSBLL {
 		}
 		
 		if(min1 <min2) {
-			System.out.println("Changin to SPList#" + index + " " + c);
+			System.out.println("1Changin to SPList#" + index + " " + c);
 			list.get(index1).getPersonalWaitingLine().add(c);
 		}
 		if(min2==min1) {
-			System.out.println("Changin to SPList#" + index + " " + c);
+			System.out.println("2Changin to SPList#" + index + " " + c);
 			list.get(index2).getPersonalWaitingLine().add(c);
 		}
 		else {
-			System.out.println("Changin to SPList#" + index + " " + c);
+			System.out.println("3Changin to SPList#" + index + " " + c);
 			list.get(index2).getPersonalWaitingLine().add(c);
 		}
 			
@@ -407,10 +413,14 @@ public class MLMSBLL {
 			
 			for(int i=1;i<list.size();i++) {
 				
+		
 				int comparator = list.get(i).getPersonalWaitingLine().size();
+				//System.out.println("comparator="  +comparator + " " + "Min=" + minNumberOfPersonsWaiting);
 					if(!list.get(i).isAvailable()) {
 						comparator = comparator +1;
 					}
+				//	System.out.println("comparator="  +comparator + " " + "Min=" + minNumberOfPersonsWaiting);
+					
 				if(comparator< minNumberOfPersonsWaiting) {
 					minNumberOfPersonsWaiting = comparator;
 					index = i;
