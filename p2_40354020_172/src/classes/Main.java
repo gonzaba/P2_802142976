@@ -86,7 +86,7 @@ public class Main {
 	  **/
 		   
 		 
-	     //uncomment when everything is completed
+	    
 while(!listOfFiles.isEmpty()) {
 	    	
 	    String f = listOfFiles.first();
@@ -128,17 +128,17 @@ while(!listOfFiles.isEmpty()) {
 	 		MLMSBLL MLMSBLL3 = new MLMSBLL(copyOf(listcust), 3);
 	 		writer2.println("MLMSBLL 3: " + MLMSBLL3.result());
 	 		
-	MLMSBLL MLMSBLL5 = new MLMSBLL(copyOf(listcust), 5);
-		writer2.println("MLMSBLL 5: " + MLMSBLL5.result());
+	 		MLMSBLL MLMSBLL5 = new MLMSBLL(copyOf(listcust), 5);
+	 		writer2.println("MLMSBLL 5: " + MLMSBLL5.result());
 	 
-	 //		MLMSBWT MLMSBWT1 = new MLMSBWT(copyOf(listcust),1);
-	 	//	writer2.println("MLMSBWT 1: " + MLMSBWT1.result());
+	 		MLMSBWT MLMSBWT1 = new MLMSBWT(copyOf(listcust),1);
+	 		writer2.println("MLMSBWT 1: " + MLMSBWT1.result());
 	 		
-	 		//MLMSBWT MLMSBWT3 = new MLMSBWT(copyOf(listcust),3);
-	 	//	writer2.println("MLMSBWT 3: " + MLMSBWT3.result());
+	 		MLMSBWT MLMSBWT3 = new MLMSBWT(copyOf(listcust),3);
+	 		writer2.println("MLMSBWT 3: " + MLMSBWT3.result());
 	 		
-	 	//	MLMSBWT MLMSBWT5 = new MLMSBWT(copyOf(listcust),5);
-	 	//	writer2.println("MLMSBWT 5: " + MLMSBWT5.result());
+	 	MLMSBWT MLMSBWT5 = new MLMSBWT(copyOf(listcust),5);
+	 	writer2.println("MLMSBWT 5: " + MLMSBWT5.result());
 	 		
 						
 			writer2.close();
