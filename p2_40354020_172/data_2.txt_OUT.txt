@@ -1,2 +1,10 @@
-Number of customers is: 10
-MLMS 1: 0 0.0 0
+Number of customers is: 5
+SLMS 1: 15 5.00 0.00
+SLMS 3: 7 0.40 0.00
+SLMS 5: 6 0.00 0.00
+MLMS 1: 15 5.00 0.00
+MLMS 3: 9 1.20 0.00
+MLMS 5: 6 0.00 0.00
+MLMSBLL 1: 15 5.00 0.00
+MLMSBLL 3: 7 0.40 0.00
+MLMSBLL 5: 6 0.00 0.00

@@ -87,7 +87,7 @@ public class Main {
 		   
 		 
 	     //uncomment when everything is completed
-  // while(!listOfFiles.isEmpty()) {
+// while(!listOfFiles.isEmpty()) {
 	    	
 	    String f = listOfFiles.first();
 	    
@@ -102,33 +102,35 @@ public class Main {
 	 		
 	 		writer2.println("Number of customers is: " + listcust.size());
 	 		
-	 		SLMS SLMS1 = new SLMS(copyOf(listcust), 1);    
-	 		writer2.println("SLMS 1: " + SLMS1.result());		
+	 		//SLMS SLMS1 = new SLMS(copyOf(listcust), 1);    
+	 		//writer2.println("SLMS 1: " + SLMS1.result());		
 
-	 		SLMS SLMS3 = new SLMS(copyOf(listcust), 3);
-	 		writer2.println("SLMS 3: " + SLMS3.result());
+	 		//SLMS SLMS3 = new SLMS(copyOf(listcust), 3);
+	 		//writer2.println("SLMS 3: " + SLMS3.result());
 	 	   
-	 		SLMS SLMS5 = new SLMS(copyOf(listcust), 5);
-	 		writer2.println("SLMS 5: " + SLMS5.result());
+	 		//SLMS SLMS5 = new SLMS(copyOf(listcust), 5);
+	 		//writer2.println("SLMS 5: " + SLMS5.result());
 	 		
-	 		MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
-	 		writer2.println("MLMS 1: " + MLMS1.result());
+	 	//	MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
+	 	//	writer2.println("MLMS 1: " + MLMS1.result());
 	 		
-	 		MLMS MLMS3 = new MLMS(copyOf(listcust), 3);
-	 		writer2.println("MLMS 3: " + MLMS3.result());
+	 	//	MLMS MLMS3 = new MLMS(copyOf(listcust), 3);
+	 	//	writer2.println("MLMS 3: " + MLMS3.result());
 	 		
-	 		MLMS MLMS5 = new MLMS(copyOf(listcust), 5);
-	 		writer2.println("MLMS 5: " + MLMS5.result());
+	 	//	MLMS MLMS5 = new MLMS(copyOf(listcust), 5);
+	 	//	writer2.println("MLMS 5: " + MLMS5.result());
 	 		
+	 	//	System.out.println(f);
 	 	//	MLMSBLL MLMSBLL1 = new MLMSBLL(copyOf(listcust), 1);
 	 	//	writer2.println("MLMSBLL 1: " + MLMSBLL1.result());
-	 		
-	 	//	MLMSBLL MLMSBLL3 = new MLMSBLL(copyOf(listcust), 3);
-	 		//writer2.println("MLMSBLL 3: " + MLMSBLL3.result());
+	 	
+	 	
+	 		MLMSBLL MLMSBLL3 = new MLMSBLL(copyOf(listcust), 3);
+	 		writer2.println("MLMSBLL 3: " + MLMSBLL3.result());
 	 		
 	 	//	MLMSBLL MLMSBLL5 = new MLMSBLL(copyOf(listcust), 5);
-	 	//	writer2.println("MLMSBLL 5: " + MLMSBLL5.result());
-	 		
+	// 		writer2.println("MLMSBLL 5: " + MLMSBLL5.result());
+	 
 	 //		MLMSBWT MLMSBWT1 = new MLMSBWT(copyOf(listcust),1);
 	 	//	writer2.println("MLMSBWT 1: " + MLMSBWT1.result());
 	 		
@@ -146,14 +148,14 @@ public class Main {
 	    }
 	   
 		
-//	}//end of while
+//}//end of while
 	    
 	
 		  
 		  
 		 
 		
-	}//end of main
+}//end of main
 
 	
 	

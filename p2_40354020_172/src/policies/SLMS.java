@@ -113,7 +113,7 @@ public class SLMS {
 						p.setDepartureTime(time);
 						//System.out.println("Depature" + p);
 						//places the customers on the list of already serviced customers.
-				//	System.out.println("Depature:" + p);
+					//	System.out.println("Depature:" + p);
 						terminatedJobs.enqueue(p);
 				}
 			}
@@ -218,7 +218,7 @@ public class SLMS {
 					
 				lista.get(i).getCustomer().decreaseRemainingTime();
 				
-			//	System.out.println(listOfServicePost.get(i).getCustomer());
+			//System.out.println("Decreasing" + listOfServicePost.get(i).getCustomer());
 				}
 			}
 		
@@ -267,7 +267,7 @@ public class SLMS {
 					listOfServicePost.get(i).setCustomer(listToProcess.dequeue());
 					listOfServicePost.get(i).getCustomer().setWaitingTime(time-listOfServicePost.get(i).getCustomer().getArrivalTime());
 					//System.out.println(listOfServicePost.get(i).getCustomer());
-				//	System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
+				//System.out.println("Entro a SP #" + i +"=" + listOfServicePost.get(i).getCustomer());
 				}
 			}
 		}

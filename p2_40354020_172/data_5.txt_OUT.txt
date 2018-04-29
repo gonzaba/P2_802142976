@@ -1,2 +1,0 @@
-Number of customers is: 25
-MLMS 1: 0 0.0 0
