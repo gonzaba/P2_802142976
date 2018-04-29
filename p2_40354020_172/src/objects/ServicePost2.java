@@ -33,7 +33,7 @@ public class ServicePost2 {
 		ArrayList<Customer> personalWaitingLine;
 			
 		//Setters	
-	
+	//
 		//Set the customer, at the same time changes the status
 		//of the server to not available.
 		public void setCustomer(Customer p) {	
