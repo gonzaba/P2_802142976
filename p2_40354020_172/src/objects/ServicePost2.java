@@ -12,10 +12,7 @@ import classes.ArrayQueue;
 
 /**
  * 
- * This class will handle what is technically a the cashier in the simulation.
- * It can verify if its available, who is it serving and the line it currently has 
- * for that service post.
- *
+		Same as Service Post 1 the only difference is that the personal waiting line is ArrayList instead of ArrayQueue
  */
 
 public class ServicePost2 {

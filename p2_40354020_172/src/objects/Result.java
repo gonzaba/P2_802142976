@@ -2,6 +2,15 @@ package objects;
 
 import java.text.DecimalFormat;
 
+
+/**
+ * 
+ * This class will work as a temporary holder of information to 
+ * extract the information of each policy once it is runned
+ * in order to write it on the output file created on the 
+ * Main class.
+ *
+ */
 public class Result {
 	
 	/**
@@ -21,6 +30,7 @@ public class Result {
 	    private float m; //average number of customers that reached the service post
 
 	    
+	    //helps set that the results are giving to two decimal places.
 	    DecimalFormat df = new DecimalFormat("0.00");
 	    
 	    //constructors
@@ -32,7 +42,7 @@ public class Result {
 
 	   
 
-		//setters
+		//Setters
 	    public void setTimeServicesCompleted(int t1) {
 	        this.t1 = t1;
 	    }
@@ -49,6 +59,7 @@ public class Result {
 	    
 	    
 	    //Getters
+	    
 	    public int getTimeServicesCompleted() {
 	        return t1;
 	    }

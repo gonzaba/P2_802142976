@@ -13,7 +13,7 @@ import objects.ServicePost2;
  */
 
 
-//Multiple Lines Multiple Servers
+//Multiple Lines Multiple Servers Balances Waiting Times
 
 public class MLMSBWT {
 	
@@ -193,6 +193,8 @@ public class MLMSBWT {
 		
 		
 	}//end of result
+	
+	
 
 	///--------------------------  METHODS --------------------------  \\\
 	

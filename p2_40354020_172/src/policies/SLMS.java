@@ -23,26 +23,40 @@ import objects.ServicePost;
 
 public class SLMS {
 	
+	//list of customers
 	ArrayQueue<Customer> listToCust;
+	
+	//the only waiting line available for this policy
 	ArrayQueue<Customer> listToProcess = new ArrayQueue<>();
+	
+	//list of service posts
 	ArrayList<ServicePost> listOfServicePost = new ArrayList<>();
+	
+	//ArrayQueue that will hold the list of customers that were served
 	ArrayQueue<Customer> terminatedJobs = new ArrayQueue<>();
 	
+	//Variables to use in the future to set up the results
 	int timeAllServicesCompleted = 0;
-	
 	int averageWaitingTime = 0;
-	
 	int numberOfServicePosts = 0;
 	
+	//object that will hold the results to later print in the file
 	Result finalResult = new Result(0,0,0);
 	
 	
+	//constructor. Sets the amount of service post available for that policy (if 1, 3 or 5)
+	//Sets the list of customers given to the local listToCust.
 	 public SLMS(ArrayQueue<Customer> list, int i) {
 		this.listToCust = list;
 		this.numberOfServicePosts = i;
 	 }
 
 	 
+	 /**
+	  * 
+	  * This will run the policy
+	  * @return result of running the policy with that scenario
+	  */
 	public Result result() {
 		
 		//Creates and Initialize the amount of ServicePost wanted
@@ -145,18 +159,11 @@ public class SLMS {
 			
 			
 			time++;	
-	//System.out.println("Time = " + time);
-			//System.out.println("List no esta vacia:" + !listToCust.isEmpty());
-			//System.out.println("Todos SP are busy: " + allSPBusy(listOfServicePost));
-			//System.out.println("Todos estan available" + allAvailable(listOfServicePost));
-			
-			
+			//System.out.println("Time = " + time);
 			
 			
 		}// end of while
 		
-		
-				
 		timeAllServicesCompleted = time;
 		
 		finalResult.setTimeServicesCompleted(timeAllServicesCompleted-1);
@@ -225,6 +232,11 @@ public class SLMS {
 		
 	}
 	
+	/**
+	 * 
+	 * @param terminatedJobs list of costumers served
+	 * @param r the object that will hold the results to later print on file
+	 */
 	public void calculateAverageTime(ArrayQueue<Customer> terminatedJobs, Result r) {
 		
 		//computing time
@@ -258,7 +270,10 @@ public class SLMS {
 	}
 	
 	
-
+/**
+ * Service Start Event
+ * @param time currently in the system
+ */
 	public void serviceStarts(int time) {
 		
 		while(!listToProcess.isEmpty() && !(allSPBusy(listOfServicePost)==true)) {

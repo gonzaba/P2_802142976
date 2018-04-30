@@ -13,7 +13,7 @@ import objects.ServicePost2;
  */
 
 
-//Multiple Lines Multiple Servers
+//Multiple Lines Multiple Servers Balanced lines
 
 public class MLMSBLL {
 	
@@ -281,6 +281,12 @@ public class MLMSBLL {
 	}//end of transfer
 	
 	
+	/**
+	 * This method will look where to put the customer that will be transfered
+	 * @param list of service Posts
+	 * @param c  customer to transfer
+	 * @param index of where the customer is in which service post
+	 */
 	private void nextAvailable2(ArrayList<ServicePost2> list, Customer c, int index) {
 	
 	int comp1;
@@ -394,7 +400,15 @@ public class MLMSBLL {
 		
 	}//end of calculateAverageTime
 
-
+	
+	
+/**
+ * 
+ * @param list of service post
+ * @param q customer to put in the line
+ * 
+ * This methods looks for where to put the new customer 
+ */
 	private void nextAvailable(ArrayList<ServicePost2> list, Customer q) {
 		
 		int minNumberOfPersonsWaiting;

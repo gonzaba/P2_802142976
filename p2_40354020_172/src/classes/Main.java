@@ -22,7 +22,8 @@ import policies.SLMS;
 
 
 /**
- * This class will essentially run the show. 
+ * This class will essentially run the show. It will read the files, send the
+ * list to customers to the policies and create the output files.
  *
  */
 
@@ -86,23 +87,34 @@ public class Main {
 	  **/
 		   
 		 
-	    
+//while there is still files to process		 
 while(!listOfFiles.isEmpty()) {
-	    	
+	    
+	//get the name of the file
 	    String f = listOfFiles.first();
 	    
+	    //send the list of files to read file that will create the list of customers
 	     ArrayQueue<Customer> listcust = readFileData(listOfFiles);
 	     
-	     
+	     //while list of customers is not empty
 	     if(listcust.size()>0) { 
-	    	    	 
-	    	f.split("\\.");
 	    	
-	 		PrintWriter writer2 = new PrintWriter(f +"_OUT.txt", "UTF-8");
+	    	 //get the name of the file 
+	    	 String[] a = f.split("\\.");
+	
+	    	 //create new file that starts with the same name but has the _OUT
+	 		PrintWriter writer2 = new PrintWriter(a[0] +"_OUT.txt", "UTF-8");
 	 		
+	 		//prints in the file the number of customers of that particular list extracted from the file
 	 		writer2.println("Number of customers is: " + listcust.size());
 	 		
+	 		//sends a copy of the list to each policy 
+	 		
+	 		//each policy receives two arguments, a copy of the list and how many
+	 		//servers are available for that policy
 	 		SLMS SLMS1 = new SLMS(copyOf(listcust), 1);    
+	 		
+	 		//writes in the file the output of the policy
 	 		writer2.println("SLMS 1: " + SLMS1.result());		
 
 	 		SLMS SLMS3 = new SLMS(copyOf(listcust), 3);
@@ -111,7 +123,7 @@ while(!listOfFiles.isEmpty()) {
 	 		SLMS SLMS5 = new SLMS(copyOf(listcust), 5);
 	 		writer2.println("SLMS 5: " + SLMS5.result());
 	 		
-	 	MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
+	 		MLMS MLMS1 = new MLMS(copyOf(listcust), 1);
 	 		writer2.println("MLMS 1: " + MLMS1.result());
 	 		
 	 		MLMS MLMS3 = new MLMS(copyOf(listcust), 3);
@@ -120,7 +132,6 @@ while(!listOfFiles.isEmpty()) {
 	 		MLMS MLMS5 = new MLMS(copyOf(listcust), 5);
 	 		writer2.println("MLMS 5: " + MLMS5.result());
 	 		
-	 	//	System.out.println(f);
 	 		MLMSBLL MLMSBLL1 = new MLMSBLL(copyOf(listcust), 1);
 	 		writer2.println("MLMSBLL 1: " + MLMSBLL1.result());	
 	 	
@@ -130,16 +141,16 @@ while(!listOfFiles.isEmpty()) {
 	 		MLMSBLL MLMSBLL5 = new MLMSBLL(copyOf(listcust), 5);
 	 		writer2.println("MLMSBLL 5: " + MLMSBLL5.result());
 	 
-	 	MLMSBWT MLMSBWT1 = new MLMSBWT(copyOf(listcust),1);
+	 		MLMSBWT MLMSBWT1 = new MLMSBWT(copyOf(listcust),1);
 	 		writer2.println("MLMSBWT 1: " + MLMSBWT1.result());
 	 		
 	 		MLMSBWT MLMSBWT3 = new MLMSBWT(copyOf(listcust),3);
 	 		writer2.println("MLMSBWT 3: " + MLMSBWT3.result());
 	 		
-		MLMSBWT MLMSBWT5 = new MLMSBWT(copyOf(listcust),5);
-		writer2.println("MLMSBWT 5: " + MLMSBWT5.result());
+	 		MLMSBWT MLMSBWT5 = new MLMSBWT(copyOf(listcust),5);
+			writer2.println("MLMSBWT 5: " + MLMSBWT5.result());
 	 		
-						
+			//closes the new file created	
 			writer2.close();
 		 	  
 		   
@@ -148,20 +159,17 @@ while(!listOfFiles.isEmpty()) {
 	   
 		
 }//end of while
-	    
-	
-		  
-		  
-		 
 		
 }//end of main
 
 	
 	
+	///--------------------------  METHODS --------------------------  \\\
+	
 	/**
 	 * 
-	 * @param listOfFiles
-	 * @return
+	 * @param listOfFiles to process
+	 * @return a list of customers to process
 	 */
 	
 	@SuppressWarnings("resource")
@@ -200,6 +208,7 @@ while(!listOfFiles.isEmpty()) {
 	        		fileCreatorExceptions(2, fileName);
 	        	}
 	        	else {
+	        		//while there is still information to extract, create new customer
 	        		 while (sc.hasNextInt()) {
 	 	            	
 	 	            	int ar = sc.nextInt();
@@ -215,6 +224,7 @@ while(!listOfFiles.isEmpty()) {
 	 	            	id++;
 	 	            
 	 	            	//System.out.println(fileName + " " + job);
+	 	            	//add the new customer to the list of customers queue.
 	 	            	listOfCustomers.enqueue(job);
 	        		 }                            
 	            }//end of else
@@ -254,9 +264,9 @@ while(!listOfFiles.isEmpty()) {
 		 * 
 		 */
 		
-		fileName.split("\\.");
+		 String[] b = fileName.split("\\.");
 		
-		PrintWriter writer = new PrintWriter(fileName +"_OUT.txt", "UTF-8");
+		PrintWriter writer = new PrintWriter(b[0] +"_OUT.txt", "UTF-8");
 		
 		//If file does not exist
 		if(caseType==1) {
